@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('newspapers_roles', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100);
-            $table->string('alias', 100);
+            $table->string('alias', 100)->nullable();
             $table->timestamps();
         });
     }

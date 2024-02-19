@@ -9,6 +9,10 @@ class Role extends Model
 {
     use HasFactory;
 
+    const ADMIN = 1;
+    const REGISTERED = 2;
+    const PUBLIC = 3;
+
     protected $table = 'newspapers_roles';
 
     protected $fillable = [

@@ -70,7 +70,7 @@ class Link extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(Link::class, 'id', 'parent_id');
+        return $this->hasMany(Link::class, 'parent_id', 'id');
     }
 
     public function menu(): HasOne

@@ -13,7 +13,7 @@ class MenuSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('newspapers_roles')->insert([
+        DB::table('newspapers_menus')->insert([
             [
                 'title' => 'Magazines',
                 'alias' => 'magazines',

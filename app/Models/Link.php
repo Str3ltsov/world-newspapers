@@ -17,12 +17,9 @@ class Link extends Model
         'id',
         'parent_id',
         'menu_id',
+        'web_data_id',
         'title',
         'class',
-        'web_title',
-        'web_heading',
-        'web_description',
-        'web_keywords',
         'description',
         'link',
         'body',
@@ -43,12 +40,9 @@ class Link extends Model
         'id' => 'integer',
         'parent_id' => 'integer',
         'menu_id' => 'integer',
+        'web_data_id' => 'integer',
         'title' => 'string',
         'class' => 'string',
-        'web_title' => 'string',
-        'web_heading' => 'string',
-        'web_description' => 'string',
-        'web_keywords' => 'string',
         'description' => 'string',
         'link' => 'string',
         'body' => 'string',
@@ -76,5 +70,10 @@ class Link extends Model
     public function menu(): HasOne
     {
         return $this->hasOne(Menu::class, 'id', 'menu_id');
+    }
+
+    public function webData(): HasOne
+    {
+        return $this->hasOne(WebData::class, 'id', 'web_data_id');
     }
 }

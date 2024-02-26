@@ -16,14 +16,11 @@ class Country extends Model
     protected $fillable = [
         'id',
         'parent_id',
+        'web_data_id',
         'flag_id',
         'code',
         'title',
         'link',
-        'web_title',
-        'web_heading',
-        'web_description',
-        'web_keywords',
         'description',
         'body',
         'left',
@@ -36,14 +33,11 @@ class Country extends Model
     protected $casts = [
         'id' => 'integer',
         'parent_id' => 'integer',
+        'web_data_id' => 'integer',
         'flag_id' => 'integer',
         'code' => 'string',
         'title' => 'string',
         'link' => 'string',
-        'web_title' => 'string',
-        'web_heading' => 'string',
-        'web_description' => 'string',
-        'web_keywords' => 'string',
         'description' => 'string',
         'body' => 'string',
         'left' => 'integer',
@@ -59,6 +53,11 @@ class Country extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Country::class, 'parent_id', 'id');
+    }
+
+    public function webData(): HasOne
+    {
+        return $this->hasOne(WebData::class, 'id', 'web_data_id');
     }
 
     public function flag(): HasOne

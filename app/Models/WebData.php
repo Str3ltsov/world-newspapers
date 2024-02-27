@@ -9,7 +9,7 @@ class WebData extends Model
 {
     use HasFactory;
 
-    public $table = 'newspapers_web_data';
+    protected $table = 'newspapers_web_data';
 
     protected $fillable = [
         'id',

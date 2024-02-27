@@ -14,8 +14,14 @@ return new class extends Migration
         Schema::create('newspapers_countries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id')->nullable()->constrained('newspapers_countries');
-            $table->foreignId('web_data_id')->nullable()->constrained('newspapers_web_data');
-            $table->foreignId('flag_id')->nullable()->constrained('newspapers_country_flags');
+            $table->foreignId('web_data_id')
+                ->nullable()
+                ->constrained('newspapers_web_data')
+                ->onDelete('cascade');
+            $table->foreignId('flag_id')
+                ->nullable()
+                ->constrained('newspapers_country_flags')
+                ->onDelete('cascade');
             $table->string('code', 5)->nullable();
             $table->string('title', 100);
             $table->string('link');

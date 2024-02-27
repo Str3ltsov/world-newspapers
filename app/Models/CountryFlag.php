@@ -9,7 +9,7 @@ class CountryFlag extends Model
 {
     use HasFactory;
 
-    public $table = 'newspapers_country_flags';
+    protected $table = 'newspapers_country_flags';
 
     protected $fillable = [
         'id',

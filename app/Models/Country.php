@@ -11,7 +11,7 @@ class Country extends Model
 {
     use HasFactory;
 
-    public $table = 'newspapers_countries';
+    protected $table = 'newspapers_countries';
 
     protected $fillable = [
         'id',

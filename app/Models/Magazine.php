@@ -10,7 +10,7 @@ class Magazine extends Model
 {
     use HasFactory;
 
-    public $table = 'newspapers_magazines';
+    protected $table = 'newspapers_magazines';
 
     protected $fillable = [
         'id',

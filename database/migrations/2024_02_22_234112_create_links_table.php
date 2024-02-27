@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('parent_id')->nullable()->constrained('newspapers_links');
             $table->foreignId('menu_id')->constrained('newspapers_menus');
-            $table->foreignId('web_data_id')->nullable()->constrained('newspapers_web_data');
+            $table->foreignId('web_data_id')
+                ->nullable()
+                ->constrained('newspapers_web_data')
+                ->onDelete('cascade');
             $table->string('title');
             $table->string('class')->nullable();
             $table->text('description')->nullable();

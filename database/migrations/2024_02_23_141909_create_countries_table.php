@@ -18,14 +18,13 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('newspapers_web_data')
                 ->onDelete('cascade');
-            $table->foreignId('flag_id')
-                ->nullable()
-                ->constrained('newspapers_country_flags')
-                ->onDelete('cascade');
             $table->string('code', 5)->nullable();
             $table->string('title', 100);
             $table->string('link');
             $table->text('body')->nullable();
+            $table->string('flag')->nullable();
+            $table->string('flag_alt')->nullable();
+            $table->text('flag_info')->nullable();
             $table->integer('left')->nullable();
             $table->integer('right')->nullable();
             $table->boolean('active')->unsigned()->default(true);

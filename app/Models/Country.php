@@ -17,11 +17,13 @@ class Country extends Model
         'id',
         'parent_id',
         'web_data_id',
-        'flag_id',
         'code',
         'title',
         'link',
         'body',
+        'flag',
+        'flag_alt',
+        'flag_info',
         'left',
         'right',
         'active',
@@ -33,11 +35,13 @@ class Country extends Model
         'id' => 'integer',
         'parent_id' => 'integer',
         'web_data_id' => 'integer',
-        'flag_id' => 'integer',
         'code' => 'string',
         'title' => 'string',
         'link' => 'string',
         'body' => 'string',
+        'flag' => 'string',
+        'flag_alt' => 'string',
+        'flag_info' => 'string',
         'left' => 'integer',
         'right' => 'integer',
         'active' => 'boolean'
@@ -56,10 +60,5 @@ class Country extends Model
     public function webData(): HasOne
     {
         return $this->hasOne(WebData::class, 'id', 'web_data_id');
-    }
-
-    public function flag(): HasOne
-    {
-        return $this->hasOne(CountryFlag::class, 'id', 'flag_id');
     }
 }

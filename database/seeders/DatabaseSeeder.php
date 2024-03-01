@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             WebDataSeeder::class,
             LinkSeeder::class,
             MagazineSeeder::class,
-            CountryFlagSeeder::class,
             CountrySeeder::class,
             NewsSeeder::class,
             TypeSeeder::class,

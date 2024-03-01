@@ -9,6 +9,11 @@ class Menu extends Model
 {
     use HasFactory;
 
+    const MAGAZINE = 1;
+    const NEWS = 2;
+    const MAIN_MENU = 3;
+    const HEADER = 4;
+
     protected $table = 'newspapers_menus';
 
     protected $fillable = [

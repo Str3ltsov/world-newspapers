@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('newspapers_news', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('link_id')->constrained('newspapers_links');
+            $table->foreignId('link_id')->nullable()->constrained('newspapers_links');
             $table->foreignId('country_id')->nullable()->constrained('newspapers_countries');
             $table->string('title');
             $table->string('url')->nullable();

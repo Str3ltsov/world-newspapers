@@ -29,7 +29,7 @@ return new class extends Migration
             $table->boolean('sticky')->default(false);
             $table->integer('left')->nullable();
             $table->integer('right')->nullable();
-            $table->text('visibily_roles')->nullable();
+            $table->text('visibility_roles')->nullable();
             $table->string('type', 100)->default('node');
             $table->dateTime('publish_start')->nullable();
             $table->dateTime('publish_end')->nullable();

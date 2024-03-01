@@ -17,6 +17,7 @@ class Node extends Model
         'id',
         'parent_id',
         'user_id',
+        'type_id',
         'title',
         'slug',
         'body',
@@ -32,7 +33,6 @@ class Node extends Model
         'left',
         'right',
         'visibility_roles',
-        'type',
         'publish_start',
         'publish_end',
         'created_at',
@@ -43,6 +43,7 @@ class Node extends Model
         'id' => 'integer',
         'parent_id' => 'integer',
         'user_id' => 'integer',
+        'type_id' => 'integer',
         'title' => 'string',
         'slug' => 'string',
         'body' => 'string',
@@ -58,7 +59,6 @@ class Node extends Model
         'left' => 'integer',
         'right' => 'integer',
         'visibility_roles' => 'string',
-        'type' => 'string',
         'publish_start' => 'datetime',
         'publish_end' => 'datetime'
     ];
@@ -76,5 +76,10 @@ class Node extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function type(): HasOne
+    {
+        return $this->hasOne(Type::class, 'id', 'type_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Type;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -108,6 +109,7 @@ class NodeSeeder extends Seeder
             [
                 'parent_id' => null,
                 'user_id' => 1,
+                'type_id' => Type::PAGE,
                 'title' => 'About us',
                 'slug' => 'about-us',
                 'body' => "<p><a href=\"http://www.world-newspapers.com\">World-Newspapers.com</a> was started in 2002. Since then, we are glad to be able to serve everyone who is interested in what is going on around the globe. In the same year, the site was awarded by Reference and User Services Association and added to the list of \"Best Free Reference Web Sites 2002\". This was a great appreciation and acknowledgement of our work.</p>" . "<p><a href=\"http://www.world-newspapers.com\">World-Newspapers.com</a> provides links to thousands of news sources covering every world's country and many of subjects.</p>" . "<p>All listed sites are in English and provide free online content.</p>" . "<p>Though we are trying to be objective, description and selection of sites are based only on our personal opinion.</p>" . "<p>Please note that the contents of sites that world-newspapers.com links to are beyond our control. If inappropriate content is added to the site after we have linked to the site please contact us and inform about the linked site.</p>" . "<p>Also note that linking to other resources does not mean that we support the views of those sites.</p>" . "<p>For more information about this site see Privacy Policy.</p>" . "<p>Please don't hesitate to Contact us with feedback about the site or any questions you may have.</p>",
@@ -123,7 +125,6 @@ class NodeSeeder extends Seeder
                 'left' => 1,
                 'right' => 2,
                 'visibility_roles' => null,
-                'type' => 'page',
                 'publish_start' => null,
                 'publish_end' => null,
                 'created_at' => now(),
@@ -132,6 +133,7 @@ class NodeSeeder extends Seeder
             [
                 'parent_id' => null,
                 'user_id' => 1,
+                'type_id' => Type::PAGE,
                 'title' => 'Privacy policy',
                 'slug' => 'privacy-policy',
                 'body' => $this->buildBodyString($this->privacyPolicyBodyParts),
@@ -147,7 +149,6 @@ class NodeSeeder extends Seeder
                 'left' => 1,
                 'right' => 2,
                 'visibility_roles' => null,
-                'type' => 'page',
                 'publish_start' => null,
                 'publish_end' => null,
                 'created_at' => now(),
@@ -156,6 +157,7 @@ class NodeSeeder extends Seeder
             [
                 'parent_id' => null,
                 'user_id' => 1,
+                'type_id' => Type::BLOG,
                 'title' => 'Is Online Dating Right for You?',
                 'slug' => 'is-online-dating-right-for-you',
                 'body' => $this->buildBodyString($this->onlineDatingBodyParts),
@@ -171,7 +173,6 @@ class NodeSeeder extends Seeder
                 'left' => 3,
                 'right' => 4,
                 'visibility_roles' => null,
-                'type' => 'blog',
                 'publish_start' => null,
                 'publish_end' => null,
                 'created_at' => now(),

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CountryFlagSeeder::class,
             CountrySeeder::class,
             NewsSeeder::class,
+            TypeSeeder::class,
             NodeSeeder::class,
             ContactSeeder::class
         ]);

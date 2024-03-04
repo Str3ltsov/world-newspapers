@@ -4,10 +4,18 @@
     <!-- Metas -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title -->
-    <title>{{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }}</title>
+    <title>
+        @hasSection('title') 
+            @yield('title') 
+        @else 
+            {{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }} 
+        @endif
+    </title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
     <!-- Fonts -->
@@ -19,7 +27,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -71,9 +79,9 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

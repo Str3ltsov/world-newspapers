@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
@@ -45,4 +46,9 @@ class Menu extends Model
         'publish_start' => 'datetime',
         'publish_end' => 'datetime'
     ];
+
+    public function links(): HasMany
+    {
+        return $this->hasMany(Link::class, 'menu_id', 'id');
+    }
 }

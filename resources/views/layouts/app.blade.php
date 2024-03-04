@@ -80,6 +80,9 @@
                 </div>
             </div>
         </nav> --}}
+        @include('layouts.header')
+        @include('layouts.logo_area')
+        @include('layouts.main_menu')
         <main>
             @yield('content')
         </main>

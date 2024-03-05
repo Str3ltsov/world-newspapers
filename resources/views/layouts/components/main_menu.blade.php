@@ -22,7 +22,7 @@
                 @endforeach
             </ul>
         </div>
-        <a class="navbar-brand pt-2 px-1" href="https://www.facebook.com/WorldNewspapers.WN/">
+        <a class="navbar-brand pt-2 px-1 me-0" href="https://www.facebook.com/WorldNewspapers.WN/">
             <i class="fa-brands fa-square-facebook fs-2"></i>
         </a>
     </div>

@@ -18,7 +18,6 @@
     </title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
-    <!-- Fonts -->
     <!-- Styles -->
     @stack('styles')
     <!-- Scripts -->
@@ -80,12 +79,13 @@
                 </div>
             </div>
         </nav> --}}
-        @include('layouts.header')
-        @include('layouts.logo_area')
-        @include('layouts.main_menu')
+        @include('layouts.components.header')
+        @include('layouts.components.logo_area')
+        @include('layouts.components.main_menu')
         <main>
             @yield('content')
         </main>
+        @include('layouts.components.footer')
     </div>
 </body>
 </html>

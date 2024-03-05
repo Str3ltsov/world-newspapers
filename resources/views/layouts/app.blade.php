@@ -82,9 +82,13 @@
         @include('layouts.components.header')
         @include('layouts.components.logo_area')
         @include('layouts.components.main_menu')
-        <main class="container my-3">
-            @yield('content')
-        </main>
+        <div class="container my-3">
+            <div class="row">
+                @include('layouts.components.left_aside')
+                @include('layouts.components.main')
+                @include('layouts.components.right_aside')
+            </div>
+        </div>
         @include('layouts.components.footer')
     </div>
 </body>

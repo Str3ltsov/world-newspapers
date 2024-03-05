@@ -8,17 +8,17 @@
 @section('content')
     <div class="bg-white p-3">
         <div class="d-flex flex-column gap-4">
-            @forelse ($categories as $category)
+            @forelse ($subcategories as $subcategory)
                 <div class="d-flex flex-column pb-2">
                     <div class="pb-2">
-                        <h6 class="fw-bold text-uppercase text-decoration-none category-link" style="color: #cd5360;">
-                            {{ $category->title }}
+                        <h6 class="fw-bold text-uppercase text-decoration-none subcategory-link" style="color: #cd5360;">
+                            {{ $subcategory->title }}
                         </h6>
                     </div>
                     <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
                     <ul class="ps-3 pe-1 pb-0 mb-0">
                         @forelse($news as $newsRecord)
-                            @if ($category->id === $newsRecord->link_id)
+                            @if ($subcategory->id === $newsRecord->link_id)
                                 <li class="text-muted">
                                     <a href="{{ url($newsRecord->link) }}" class="news-link p-0">
                                         {{ $newsRecord->title }}
@@ -38,7 +38,7 @@
     </div>
 
     <style>  
-        .category-link {
+        .subcategory-link {
             color: #438496;
             transition: color 200ms ease;
 

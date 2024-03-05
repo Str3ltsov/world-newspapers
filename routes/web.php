@@ -18,4 +18,5 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/news', [CategoryNewsController::class, 'index'])->name('newsByCategories');
+Route::get('/news', [CategoryNewsController::class, 'index'])->name('news');
+Route::get('/news/{category}', [CategoryNewsController::class, 'show'])->name('newsByCategory');

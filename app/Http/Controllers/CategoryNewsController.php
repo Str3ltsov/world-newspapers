@@ -25,11 +25,31 @@ class CategoryNewsController extends Controller
             $worldNewsLink = $this->linkService
                 ->getLinkByAttribute('link', '/' . Route::current()->uri . '/world-news');
 
-            return view('news_by_categories.index')
+            return view('category_news.index')
                 ->with([
                     'link' => $link,
                     'webData' => $link->webData,
-                    'categories' => $worldNewsLink->children,
+                    'subcategories' => $worldNewsLink->children,
+                    'news' => $this->newsService->getNewsByAttribute('country_id', null)
+                ]);
+        } catch (Throwable $throwable) {
+            if (config('app.env') !== 'production')
+                throw $throwable;
+            else
+                return back()->with('error', $throwable->getMessage());
+        }
+    }
+
+    public function show(string $category): Renderable|RedirectResponse
+    {
+        try {
+            $link = $this->linkService->getLinkByAttribute('link', '/' . 'news' . '/' . $category);
+
+            return view('category_news.index')
+                ->with([
+                    'link' => $link,
+                    'webData' => $link->webData,
+                    'subcategories' => $link->children,
                     'news' => $this->newsService->getNewsByAttribute('country_id', null)
                 ]);
         } catch (Throwable $throwable) {

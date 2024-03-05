@@ -25,7 +25,7 @@
     @stack('scripts')
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="width: 100%; min-height: 100vh">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -82,7 +82,7 @@
         @include('layouts.components.header')
         @include('layouts.components.logo_area')
         @include('layouts.components.main_menu')
-        <main>
+        <main class="container my-3">
             @yield('content')
         </main>
         @include('layouts.components.footer')

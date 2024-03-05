@@ -10,6 +10,7 @@
 
 <style>
     .header-link {
+        transition: color 200ms ease;
         color: #959595;
 
         &:hover, &:focus {

@@ -7,9 +7,10 @@
             <ul class="navbar-nav gap-lg-3">
                 @foreach($mainMenuLinks as $mainMenuLink)
                     @if ($mainMenuLink->link === '/')
-                        <li class="nav-item main-menu-item mt-3 mt-md-0 px-1">
-                            <a class="nav-link text-white text-uppercase py-1 fs-6 ms-0 ps-0" href="{{ url($mainMenuLink->link) }}">
-                                <i class="fa-solid fa-house fs-5"></i>
+                        <li class="nav-item main-menu-item d-flex align-items-center mt-3 mt-md-0 px-1">
+                            <a class="nav-link text-white text-uppercase py-1 fs-6 ms-0" href="{{ url($mainMenuLink->link) }}">
+                                <i class="fa-solid fa-house fs-6 d-none d-md-block"></i>
+                                <span class="d-md-none d-block">{{ $mainMenuLink->title }}</span>
                             </a>
                         </li>
                     @else
@@ -30,6 +31,8 @@
 
 <style>
     .main-menu-item {
+        transition: background 200ms ease;
+
         &:hover, &:focus {
             background: #356a78;
         }

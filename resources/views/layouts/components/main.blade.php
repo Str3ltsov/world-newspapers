@@ -7,7 +7,7 @@
                         <i class="fa-solid fa-house fs-6"></i>
                     </a>
                 </li>
-                @if (request()->url() != route('home') && $link->link == request()->path())
+                @if (request()->url() != route('home') && $link->link == '/'.request()->path())
                     <li class="breadcrumb-item" aria-current="page-breadcrumb" style="color: #cd5360;">
                         {{ $link->title }}
                     </li>

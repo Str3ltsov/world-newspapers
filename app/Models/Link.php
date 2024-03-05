@@ -58,9 +58,9 @@ class Link extends Model
         'publish_end' => 'datetime'
     ];
 
-    public function parent(): HasOne
+    public function parent(): BelongsTo
     {
-        return $this->hasOne(Link::class, 'id', 'parent_id');
+        return $this->belongsTo(Link::class, 'parent_id');
     }
 
     public function children(): HasMany

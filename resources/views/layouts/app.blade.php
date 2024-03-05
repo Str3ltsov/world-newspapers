@@ -25,7 +25,7 @@
     @stack('scripts')
 </head>
 <body>
-    <div id="app" style="width: 100%; min-height: 100vh">
+    <div id="app" style="width: 100%; min-height: 100vh; display: flex; flex-direction: column;">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">

@@ -1,4 +1,4 @@
-<footer style="background-color: #438496;">
+<footer style="background-color: #438496; margin-top: auto;">
     <div class="container">
         <p class="text-white fw-bold pt-4 pb-2">
             {{ __('World-Newspapers.com © 2002-2024 All rights reserved') }}

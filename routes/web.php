@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryNewsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MagazineController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,4 @@ Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/news', [CategoryNewsController::class, 'index'])->name('news');
 Route::get('/news/{category}', [CategoryNewsController::class, 'show'])->name('newsByCategory');
+Route::get('/magazines', [MagazineController::class, 'index'])->name('magazines');

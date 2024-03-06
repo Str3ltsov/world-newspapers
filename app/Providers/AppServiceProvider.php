@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
                 ->with([
                     'headerLinks' => Menu::find(Menu::HEADER)->links,
                     'mainMenuLinks' => Menu::find(Menu::MAIN_MENU)->links,
-                    'magazineLinks' => Menu::find(Menu::MAGAZINE)->links,
+                    'magazineLinks' => Menu::find(Menu::MAGAZINE)->links->where('parent_id', null),
                     'newsLinks' => Menu::find(Menu::NEWS)->links->where('parent_id', null)
                 ]);
         });

@@ -34,7 +34,7 @@
                 <div class="d-flex gap-3">
                     @if ($newsRecord->logo)
                         <img src="{{ asset('images/news_logos/'.$newsRecord->logo) }}" alt="{{ $newsRecord->logo_alt }}" 
-                            style="width: 120px; max-height: 170px; cursor: pointer" onclick="redirectAway('{{ $newsRecord->url }}')">
+                            style="width: 120px; height: 50px; object-fit: contain; cursor: pointer cursor: pointer" onclick="redirectAway('{{ $newsRecord->url }}')">
                     @endif
                     <div class="d-flex flex-column">
                         <a href="{{ $newsRecord->url }}" target="_blank" class="magazine-link text-decoration-none">

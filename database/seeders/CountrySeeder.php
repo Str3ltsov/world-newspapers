@@ -14,13 +14,13 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-        $webDataQuantity = WebData::all('id')->count();
+        $webDataQuantity = WebData::all('id')->count() - 6;
 
         DB::table('newspapers_countries')->insert([
             // Continents
             [
                 'parent_id' => null,
-                'web_data_id' => $webDataQuantity - 7 + 1,
+                'web_data_id' => $webDataQuantity + 1,
                 'code' => null,
                 'title' => 'North and Central America',
                 'link' => '/countries/north-and-central-america',
@@ -36,7 +36,7 @@ class CountrySeeder extends Seeder
             ],
             [
                 'parent_id' => null,
-                'web_data_id' => $webDataQuantity - 7 + 2,
+                'web_data_id' => $webDataQuantity + 2,
                 'code' => null,
                 'title' => 'Europe',
                 'link' => '/countries/europe',
@@ -53,7 +53,7 @@ class CountrySeeder extends Seeder
             // Countries
             [
                 'parent_id' => 1,
-                'web_data_id' => $webDataQuantity - 7 + 3,
+                'web_data_id' => $webDataQuantity + 3,
                 'code' => 'us',
                 'title' => 'USA',
                 'link' => '/countries/north-and-central-america/usa',
@@ -69,7 +69,7 @@ class CountrySeeder extends Seeder
             ],
             [
                 'parent_id' => 2,
-                'web_data_id' => $webDataQuantity - 7 + 4,
+                'web_data_id' => $webDataQuantity + 4,
                 'code' => 'lt',
                 'title' => 'Lithuania',
                 'link' => '/countries/europe/lithuania',
@@ -86,7 +86,7 @@ class CountrySeeder extends Seeder
             // States
             [
                 'parent_id' => 3,
-                'web_data_id' => $webDataQuantity - 7 + 5,
+                'web_data_id' => $webDataQuantity + 5,
                 'code' => 'us-al',
                 'title' => 'Alabama',
                 'link' => '/countries/north-and-central-america/usa/alabama',
@@ -102,7 +102,7 @@ class CountrySeeder extends Seeder
             ],
             [
                 'parent_id' => 3,
-                'web_data_id' => $webDataQuantity - 7 + 6,
+                'web_data_id' => $webDataQuantity + 6,
                 'code' => 'us-ak',
                 'title' => 'Alaska',
                 'link' => '/countries/north-and-central-america/usa/alaska',

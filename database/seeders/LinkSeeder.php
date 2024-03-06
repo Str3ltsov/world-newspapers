@@ -442,7 +442,7 @@ class LinkSeeder extends Seeder
             [
                 'parent_id' => null,
                 'menu_id' => Menu::HEADER,
-                'web_data_id' => 20,
+                'web_data_id' => 21,
                 'title' => 'Sitemap',
                 'class' => 'sitemap-index',
                 'description' => '',

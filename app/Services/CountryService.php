@@ -13,6 +13,22 @@ class CountryService
         return Country::all();
     }
 
+    public function getCountryByAttribute(string $attributeName, mixed $atrributeValue): ?Country
+    {
+        $countryModel = new Country;
+
+        if (array_search($attributeName, $countryModel->getFillable())) {
+            $country = Country::where($attributeName, $atrributeValue)->first();
+
+            if (!$country)
+                throw new Exception(__('Country not found'));
+
+            return $country;
+        }
+
+        return null;
+    }
+
     public function getCountriesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
     {
         $countryModel = new Country;

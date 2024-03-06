@@ -29,4 +29,5 @@ Route::get('/magazines', [MagazineController::class, 'index'])->name('magazines'
 Route::get('/magazines/{category}', [MagazineController::class, 'magazinesByCategory'])->name('magazinesByCategory');
 Route::get('/magazines/{category}/{subcategory}', [MagazineController::class, 'magazinesBySubcategory'])->name('magazinesBySubcategory');
 // News by countries
-Route::get('/countries', [CountryNewsController::class, 'index'])->name('countries');
+Route::get('/countries', [CountryNewsController::class, 'index'])->name('regions');
+Route::get('/countries/{region}', [CountryNewsController::class, 'newsByRegion'])->name('newsByRegion');

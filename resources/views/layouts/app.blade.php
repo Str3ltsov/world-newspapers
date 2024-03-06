@@ -21,6 +21,7 @@
     <!-- Styles -->
     @stack('styles')
     <!-- Scripts -->
+    <script src="{{ asset('js/helpers.js') }}"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('scripts')
 </head>

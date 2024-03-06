@@ -45,16 +45,16 @@ class MagazineController extends Controller
     public function magazinesByCategory(string $category): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService
+            $category = $this->linkService
                 ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
 
             return view('magazines.index')
                 ->with([
-                    'link' => $link,
-                    'webData' => $link->webData,
-                    'subcategories' => $link->children,
+                    'link' => $category,
+                    'webData' => $category->webData,
+                    'subcategories' => $category->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $link->id)
+                        ->getMagazinesByAttribute('link_id', $category->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

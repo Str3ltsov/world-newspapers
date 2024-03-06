@@ -20,7 +20,7 @@
                         @forelse($news as $newsRecord)
                             @if ($subcategory->id === $newsRecord->link_id)
                                 <li class="text-muted">
-                                    <a href="{{ url($newsRecord->link) }}" class="news-link p-0">
+                                    <a href="{{ $newsRecord->url }}" target="_blank" class="news-link p-0">
                                         {{ $newsRecord->title }}
                                     </a>
                                     {{ $newsRecord->description ? '- '.$newsRecord->description : null }}

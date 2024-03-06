@@ -6,7 +6,7 @@
 @section('keywords', $webData->keywords)
 
 @section('content')
-    @if ($subcategories)
+    @if (!$subcategories->isEmpty())
         <div class="bg-white p-3">
             <div class="d-flex flex-wrap gap-2">
                 @forelse($subcategories as $subcategory)
@@ -27,12 +27,12 @@
         </div>
     @endif
     <div class="bg-white px-3 py-4">
-        <div class="d-flex flex-column gap-4">
+        <div class="d-flex flex-column gap-3">
             @forelse ($magazines as $magazine)
                 <div class="d-flex gap-3">
                     @if ($magazine->cover)
                         <img src="{{ asset('images/magazine_covers/'.$magazine->cover) }}" alt="{{ $magazine->cover_alt }}" 
-                            class="img-fluid" style="cursor: pointer" width="100px" onclick="redirectAway('{{ $magazine->url }}')">
+                            style="width: 120px; max-height: 170px; cursor: pointer" onclick="redirectAway('{{ $magazine->url }}')">
                     @endif
                     <div class="d-flex flex-column">
                         <a href="{{ $magazine->url }}" target="_blank" class="magazine-link text-decoration-none">
@@ -41,6 +41,9 @@
                         <p class="mb-0 pb-0 text-muted">{{ $magazine->description ? $magazine->description : null }}</p>
                     </div>
                 </div>
+                @if (!$loop->last)
+                    <hr class="p-0 m-0 border-1 opacity-25">
+                @endif
             @empty
                 <p class="text-muted pb-0 mb-0">{{ __('No available magazines.') }}</p>
             @endforelse
@@ -73,8 +76,4 @@
             }
         }
     </style>
-
-    <script>
-        const redirectAway = url => window.open(url, "_blank")
-    </script>
 @endsection

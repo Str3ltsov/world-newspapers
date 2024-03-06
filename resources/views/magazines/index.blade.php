@@ -13,7 +13,7 @@
                     {{ $subcategory->title }}
                 </a>
             @empty
-                <p class="text-muted">{{ __('No available subcategories.') }}</p>
+                <p class="text-muted pb-0 mb-0">{{ __('No available subcategories.') }}</p>
             @endforelse
         </div>
     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             @empty
-                <p class="text-muted">{{ __('No available magazines.') }}</p>
+                <p class="text-muted pb-0 mb-0">{{ __('No available magazines.') }}</p>
             @endforelse
         </div>
     </div>

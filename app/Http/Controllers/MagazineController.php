@@ -30,7 +30,53 @@ class MagazineController extends Controller
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $animalsLink->children,
-                    'magazines' => $this->magazineService->getMagazinesByAttribute('link_id', $animalsLink->id)
+                    'magazines' => $this->magazineService
+                        ->getMagazinesByAttribute('link_id', $animalsLink->id)
+                ]);
+        } catch (Throwable $throwable) {
+            if (config('app.env') !== 'production')
+                throw $throwable;
+            else
+                return back()->with('error', $throwable->getMessage());
+        }
+    }
+
+    public function magazinesByCategory(string $category): Renderable|RedirectResponse
+    {
+        try {
+            $link = $this->linkService->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
+
+            return view('magazines.index')
+                ->with([
+                    'link' => $link,
+                    'webData' => $link->webData,
+                    'subcategories' => $link->children,
+                    'magazines' => $this->magazineService
+                        ->getMagazinesByAttribute('link_id', $link->id)
+                ]);
+        } catch (Throwable $throwable) {
+            if (config('app.env') !== 'production')
+                throw $throwable;
+            else
+                return back()->with('error', $throwable->getMessage());
+        }
+    }
+
+    public function magazinesBySubcategory(string $category, string $subcategory): Renderable|RedirectResponse
+    {
+        try {
+            $categoryLink = $this->linkService
+                ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
+            $subcategoryLink = $this->linkService
+                ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category . '/' . $subcategory);
+
+            return view('magazines.index')
+                ->with([
+                    'link' => $subcategoryLink,
+                    'webData' => $subcategoryLink->webData,
+                    'subcategories' => $categoryLink->children,
+                    'magazines' => $this->magazineService
+                        ->getMagazinesByAttribute('link_id', $subcategoryLink->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

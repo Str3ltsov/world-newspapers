@@ -22,3 +22,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/news', [CategoryNewsController::class, 'index'])->name('news');
 Route::get('/news/{category}', [CategoryNewsController::class, 'show'])->name('newsByCategory');
 Route::get('/magazines', [MagazineController::class, 'index'])->name('magazines');
+Route::get('/magazines/{category}', [MagazineController::class, 'magazinesByCategory'])
+    ->name('magazinesByCategory');
+Route::get('/magazines/{category}/{subcategory}', [MagazineController::class, 'magazinesBySubcategory'])
+    ->name('magazinesBySubcategory');

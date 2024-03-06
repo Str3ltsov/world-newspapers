@@ -27,12 +27,12 @@
                                 </li>
                             @endif
                         @empty
-                            <p class="text-muted">{{ __('No available news.') }}</p>
+                            <p class="text-muted pb-0 mb-0">{{ __('No available news.') }}</p>
                         @endforelse
                     </ul>
                 </div>
             @empty
-                <p class="text-muted">{{ __('No available news categories.') }}</p>
+                <p class="text-muted pb-0 mb-0">{{ __('No available news categories.') }}</p>
             @endforelse
         </div>
     </div>

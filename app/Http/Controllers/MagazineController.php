@@ -21,7 +21,8 @@ class MagazineController extends Controller
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService
+                ->getLinkByAttribute('link', '/' . Route::current()->uri);
             $animalsLink = $this->linkService
                 ->getLinkByAttribute('link', '/' . Route::current()->uri . '/animals');
 
@@ -44,7 +45,8 @@ class MagazineController extends Controller
     public function magazinesByCategory(string $category): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
+            $link = $this->linkService
+                ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
 
             return view('magazines.index')
                 ->with([

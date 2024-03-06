@@ -6,17 +6,26 @@
 @section('keywords', $webData->keywords)
 
 @section('content')
-    <div class="bg-white p-3">
-        <div class="d-flex flex-wrap gap-2">
-            @forelse($subcategories as $subcategory)
-                <a href="{{ url($subcategory->link) }}" class="btn rounded-0 subcategory-link">
-                    {{ $subcategory->title }}
-                </a>
-            @empty
-                <p class="text-muted pb-0 mb-0">{{ __('No available subcategories.') }}</p>
-            @endforelse
+    @if ($subcategories)
+        <div class="bg-white p-3">
+            <div class="d-flex flex-wrap gap-2">
+                @forelse($subcategories as $subcategory)
+                    <a href="{{ url($subcategory->link) }}" 
+                        class="btn rounded-0 
+                            @if ($link->title == $subcategory->title) 
+                                subcategory-link-active 
+                            @else 
+                                subcategory-link 
+                            @endif
+                        ">
+                        {{ $subcategory->title }}
+                    </a>
+                @empty
+                    <p class="text-muted pb-0 mb-0">{{ __('No available subcategories.') }}</p>
+                @endforelse
+            </div>
         </div>
-    </div>
+    @endif
     <div class="bg-white px-3 py-4">
         <div class="d-flex flex-column gap-4">
             @forelse ($magazines as $magazine)
@@ -48,6 +57,11 @@
                 background-color: #cd5360;
                 color: #E4E4E4;
             }
+        }
+
+        .subcategory-link-active {
+            background-color: #cd5360;
+            color: #E4E4E4;
         }
 
         .magazine-link {

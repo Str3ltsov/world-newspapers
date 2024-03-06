@@ -25,12 +25,12 @@
                                 {{ $country->title }}
                             </a>
                         @empty
-                            <p class="text-muted">{{ __('No available countries.') }}</p>
+                            <p class="text-muted pb-0 mb-0">{{ __('No available countries.') }}</p>
                         @endforelse
                     </div>
                 </div>
             @empty
-                <p class="text-muted">{{ __('No available regions.') }}</p>
+                <p class="text-muted pb-0 mb-0">{{ __('No available regions.') }}</p>
             @endforelse
         </div>
     </div>

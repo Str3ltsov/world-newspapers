@@ -21,7 +21,8 @@ class CategoryNewsController extends Controller
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService
+                ->getLinkByAttribute('link', '/' . Route::current()->uri);
             $worldNewsLink = $this->linkService
                 ->getLinkByAttribute('link', '/' . Route::current()->uri . '/world-news');
 
@@ -43,7 +44,8 @@ class CategoryNewsController extends Controller
     public function show(string $category): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . 'news' . '/' . $category);
+            $link = $this->linkService
+                ->getLinkByAttribute('link', '/' . 'news' . '/' . $category);
 
             return view('category_news.index')
                 ->with([

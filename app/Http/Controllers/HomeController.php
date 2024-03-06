@@ -21,13 +21,15 @@ class HomeController extends Controller
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', Route::current()->uri);
+            $link = $this->linkService
+                ->getLinkByAttribute('link', Route::current()->uri);
 
             return view('home.index')
                 ->with([
                     'link' => $link,
                     'webData' => $link->webData,
-                    'regions' => $this->countryService->getCountriesByAttribute('parent_id', null)
+                    'regions' => $this->countryService
+                        ->getCountriesByAttribute('parent_id', null)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('type_id')->default(Type::NODE)->constrained('newspapers_types');
             $table->string('title');
             $table->string('slug');
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->text('excerpt')->nullable();
             $table->smallInteger('status')->nullable();
             $table->string('mime_type', 100)->nullable();

@@ -61,7 +61,23 @@ class TypeSeeder extends Seeder
                 'plugin' => null,
                 'created_at' => now(),
                 'updated_at' => now()
-            ]
+            ],
+            [
+                'title' => 'Attachment',
+                'alias' => 'attachment',
+                'description' => 'An attachment can be any type of image file.',
+                'format_show_author' => false,
+                'format_show_date' => false,
+                'format_use_wysiwyg' => true,
+                'comment_status' => 0,
+                'comment_approve' => false,
+                'comment_spam_protection' => false,
+                'comment_captcha' => false,
+                'params' => null,
+                'plugin' => null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
     }
 }

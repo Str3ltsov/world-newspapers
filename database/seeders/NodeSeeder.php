@@ -26,7 +26,7 @@ class NodeSeeder extends Seeder
         "<p>We can also allow ad companies to use cookies to help serve advertisments. They are just used to help serve ads on the site you are visiting. Cookies cannot be used to identify individuals, only machines, so advertisers will not know who you are. Most web browsers automatically accept cookies, but you can usually change your browser to prevent that use if you desire.</p>",
         "<h3>Disclaimer</h3>",
         "<p>We cannot be responsible for the content of sites that world-newspapers.com links to. If inappropropriate content is added to the site after we have linked to the site please contact us and inform about the linked site.</p>",
-        "<p>If you feel that this site is not following its stated information policy, please contact:<br /><img alt=\"\" src=\"/uploads/pasto_adresas.jpg\" style=\"width: 214px; height: 35px;\" /></p>"
+        "<p>If you feel that this site is not following its stated information policy, please contact:<br /><img alt=\"\" src=\"/images/attachments/pasto_adresas.jpg\" style=\"width: 214px; height: 35px;\" /></p>"
     ];
 
     private array $onlineDatingBodyParts = [
@@ -172,6 +172,30 @@ class NodeSeeder extends Seeder
                 'sticky' => false,
                 'left' => 3,
                 'right' => 4,
+                'visibility_roles' => null,
+                'publish_start' => null,
+                'publish_end' => null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'parent_id' => null,
+                'user_id' => 1,
+                'type_id' => Type::ATTACHMENT,
+                'title' => 'pasto_adresas',
+                'slug' => 'pasto_adresas.jpg',
+                'body' => null,
+                'excerpt' => null,
+                'status' => null,
+                'mime_type' => 'image/jpeg',
+                'comment_status' => 1,
+                'comment_count' => 0,
+                'promote' => false,
+                'path' => '/images/attachments/pasto_adresas.jpg',
+                'terms' => null,
+                'sticky' => false,
+                'left' => 1,
+                'right' => 2,
                 'visibility_roles' => null,
                 'publish_start' => null,
                 'publish_end' => null,

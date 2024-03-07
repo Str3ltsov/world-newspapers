@@ -16,7 +16,8 @@ class CountryNewsController extends Controller
     public function __construct(
         private LinkService $linkService,
         private CountryService $countryService,
-        private NewsService $newsService
+        private NewsService $newsService,
+        private bool $activeNews = true
     ) {
     }
 
@@ -28,10 +29,11 @@ class CountryNewsController extends Controller
 
             return view('country_news.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
-                        ->getCountriesByAttribute('parent_id', null)
+                        ->getCountriesByAttribute('parent_id', null, $this->activeNews)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -45,16 +47,17 @@ class CountryNewsController extends Controller
     {
         try {
             $region = $this->countryService
-                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region);
+                ->getCountryByAttribute('link', '/countries/' . $region);
 
             return view('country_news.region')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($region->link),
                     'link' => $region,
                     'webData' => $region->webData,
                     'region' => $region,
                     'countries' => $region->children,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $region->id)
+                        ->getNewsByAttribute('country_id', $region->id, $this->activeNews)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -68,19 +71,20 @@ class CountryNewsController extends Controller
     {
         try {
             $region_ = $this->countryService
-                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region);
+                ->getCountryByAttribute('link', '/countries/' .  $region);
             $country = $this->countryService
-                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region . '/' . $country);
+                ->getCountryByAttribute('link', '/countries/' . $region . '/' . $country);
 
             return view('country_news.country')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($country->link),
                     'link' => $country,
                     'webData' => $country->webData,
                     'region' => $region_,
                     'country' => $country,
                     'states' => $country->children,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $country->id)
+                        ->getNewsByAttribute('country_id', $country->id, $this->activeNews)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -94,14 +98,15 @@ class CountryNewsController extends Controller
     {
         try {
             $region_ = $this->countryService
-                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region);
+                ->getCountryByAttribute('link', '/countries/' . $region);
             $country_ = $this->countryService
-                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region . '/' . $country);
+                ->getCountryByAttribute('link', '/countries/' . $region . '/' . $country);
             $state = $this->countryService
-                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region . '/' . $country . '/' . $state);
+                ->getCountryByAttribute('link', '/countries/' . $region . '/' . $country . '/' . $state);
 
             return view('country_news.state')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($state->link),
                     'link' => $state,
                     'webData' => $state->webData,
                     'region' => $region_,
@@ -109,7 +114,7 @@ class CountryNewsController extends Controller
                     'states' => $country_->children,
                     'currentState' => $state,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $state->id)
+                        ->getNewsByAttribute('country_id', $state->id, $this->activeNews)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

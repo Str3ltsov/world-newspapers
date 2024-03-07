@@ -14,7 +14,8 @@ class HomeController extends Controller
 {
     public function __construct(
         private LinkService $linkService,
-        private CountryService $countryService
+        private CountryService $countryService,
+        private bool $activeCountries = true
     ) {
     }
 
@@ -26,10 +27,11 @@ class HomeController extends Controller
 
             return view('home.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
-                        ->getCountriesByAttribute('parent_id', null)
+                        ->getCountriesByAttribute('parent_id', null, $this->activeCountries)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

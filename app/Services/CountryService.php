@@ -8,11 +8,6 @@ use Exception;
 
 class CountryService
 {
-    public function getCoutries(): Collection
-    {
-        return Country::all();
-    }
-
     public function getCountryByAttribute(string $attributeName, mixed $atrributeValue): ?Country
     {
         $countryModel = new Country;
@@ -29,12 +24,15 @@ class CountryService
         return null;
     }
 
-    public function getCountriesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
+    public function getCountriesByAttribute(string $attributeName, mixed $atrributeValue, string $active): ?Collection
     {
         $countryModel = new Country;
 
         if (array_search($attributeName, $countryModel->getFillable())) {
-            $countries = Country::where($attributeName, $atrributeValue)->get();
+            $countries = Country::where([
+                $attributeName => $atrributeValue,
+                'active' => $active
+            ])->get();
 
             if (!$countries)
                 throw new Exception(__('Countries not found'));

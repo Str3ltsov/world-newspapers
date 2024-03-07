@@ -27,6 +27,7 @@ class BlogController extends Controller
 
             return view('blogs.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromNode($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'blogs' => $this->nodeService->getNodesByAttribute('type_id', Type::BLOG)
@@ -43,10 +44,11 @@ class BlogController extends Controller
     {
         try {
             $link = $this->linkService
-                ->getLinkByAttribute('link', '/' . 'blogs');
+                ->getLinkByAttribute('link', '/blogs');
 
             return view('blogs.show')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromNode($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'blog' => $this->nodeService->getNodeByAttribute('path', '/' . 'blogs' . '/' . $title)

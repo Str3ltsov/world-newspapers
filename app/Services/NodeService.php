@@ -8,11 +8,6 @@ use Exception;
 
 class NodeService
 {
-    public function getNodes(): Collection
-    {
-        return Node::all();
-    }
-
     public function getNodeByAttribute(string $attributeName, mixed $atrributeValue): ?Node
     {
         $nodeModel = new Node;

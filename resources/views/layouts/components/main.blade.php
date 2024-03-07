@@ -7,11 +7,20 @@
                         <i class="fa-solid fa-house fs-6"></i>
                     </a>
                 </li>
-                @if (request()->url() != route('home') && $link->link == '/'.request()->path())
-                    <li class="breadcrumb-item" aria-current="page-breadcrumb" style="color: #cd5360;">
-                        {{ $link->title }}
-                    </li>
-                @endif
+                @forelse ($linkBreadcrumb as $link)
+                    @if (!$loop->last)
+                        <li class="breadcrumb-item">
+                            <a href="{{ url($link['path']) }}" class="breadcrumb-link text-decoration-none">
+                                {{ $link['title'] }}
+                            </a>
+                        </li>
+                    @else
+                        <li class="breadcrumb-item" aria-current="page-breadcrumb" style="color: #cd5360;">
+                            {{ $link['title'] }}
+                        </li>
+                    @endif
+                @empty
+                @endforelse
             </ol>
           </nav>
     </div>

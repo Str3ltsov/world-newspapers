@@ -14,7 +14,8 @@ class CategoryNewsController extends Controller
 {
     public function __construct(
         private LinkService $linkService,
-        private NewsService $newsService
+        private NewsService $newsService,
+        private bool $activeNews = true
     ) {
     }
 
@@ -28,10 +29,11 @@ class CategoryNewsController extends Controller
 
             return view('category_news.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $worldNewsLink->children,
-                    'news' => $this->newsService->getNewsByAttribute('country_id', null)
+                    'news' => $this->newsService->getNewsByAttribute('country_id', null, $this->activeNews)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -45,14 +47,15 @@ class CategoryNewsController extends Controller
     {
         try {
             $link = $this->linkService
-                ->getLinkByAttribute('link', '/' . 'news' . '/' . $category);
+                ->getLinkByAttribute('link', '/news/' . $category);
 
             return view('category_news.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $link->children,
-                    'news' => $this->newsService->getNewsByAttribute('country_id', null)
+                    'news' => $this->newsService->getNewsByAttribute('country_id', null, $this->activeNews)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

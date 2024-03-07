@@ -8,17 +8,15 @@ use Exception;
 
 class MagazineService
 {
-    public function getMagazines(): Collection
-    {
-        return Magazine::all();
-    }
-
-    public function getMagazinesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
+    public function getMagazinesByAttribute(string $attributeName, mixed $atrributeValue, bool $active): ?Collection
     {
         $magazineModel = new Magazine;
 
         if (array_search($attributeName, $magazineModel->getFillable())) {
-            $magazines = Magazine::where($attributeName, $atrributeValue)->get();
+            $magazines = Magazine::where([
+                $attributeName => $atrributeValue,
+                'active' => $active
+            ])->get();
 
             if (!$magazines)
                 throw new Exception(__('Magazines not found'));

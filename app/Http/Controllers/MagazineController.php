@@ -14,7 +14,8 @@ class MagazineController extends Controller
 {
     public function __construct(
         private LinkService $linkService,
-        private MagazineService $magazineService
+        private MagazineService $magazineService,
+        private bool $activeMagazines = true
     ) {
     }
 
@@ -28,11 +29,12 @@ class MagazineController extends Controller
 
             return view('magazines.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $animalsLink->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $animalsLink->id)
+                        ->getMagazinesByAttribute('link_id', $animalsLink->id, $this->activeMagazines)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -46,15 +48,16 @@ class MagazineController extends Controller
     {
         try {
             $category = $this->linkService
-                ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
+                ->getLinkByAttribute('link', '/magazines/' . $category);
 
             return view('magazines.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($category->link),
                     'link' => $category,
                     'webData' => $category->webData,
                     'subcategories' => $category->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $category->id)
+                        ->getMagazinesByAttribute('link_id', $category->id, $this->activeMagazines)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -68,17 +71,18 @@ class MagazineController extends Controller
     {
         try {
             $categoryLink = $this->linkService
-                ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category);
+                ->getLinkByAttribute('link', '/magazines/' . $category);
             $subcategoryLink = $this->linkService
-                ->getLinkByAttribute('link', '/' . 'magazines' . '/' . $category . '/' . $subcategory);
+                ->getLinkByAttribute('link', '/magazines/' . $category . '/' . $subcategory);
 
             return view('magazines.index')
                 ->with([
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($subcategoryLink->link),
                     'link' => $subcategoryLink,
                     'webData' => $subcategoryLink->webData,
                     'subcategories' => $categoryLink->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $subcategoryLink->id)
+                        ->getMagazinesByAttribute('link_id', $subcategoryLink->id, $this->activeMagazines)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

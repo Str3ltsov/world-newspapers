@@ -12,23 +12,27 @@
         </p>
         <div class="d-flex flex-column gap-4">
             @forelse ($regions as $region)
-                <div class="d-flex flex-column pb-2">
-                    <div class="pb-2">
-                        <a class="fw-bold text-uppercase text-decoration-none region-link" href="{{ url($region->link) }}">
-                            {{ $region->title }}
-                        </a>
-                    </div>
-                    <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
-                    <div class="d-flex flex-wrap gap-2">
-                        @forelse($region->children as $country)
-                            <a href="{{ url($country->link) }}" class="btn rounded-0 country-link">
-                                {{ $country->title }}
+                @if ($region->active)
+                    <div class="d-flex flex-column pb-2">
+                        <div class="pb-2">
+                            <a class="fw-bold text-uppercase text-decoration-none region-link" href="{{ url($region->link) }}">
+                                {{ $region->title }}
                             </a>
-                        @empty
-                            <p class="text-muted pb-0 mb-0">{{ __('No available countries.') }}</p>
-                        @endforelse
+                        </div>
+                        <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
+                        <div class="d-flex flex-wrap gap-2">
+                            @forelse($region->children as $country)
+                                @if ($country->active)
+                                    <a href="{{ url($country->link) }}" class="btn rounded-0 country-link">
+                                        {{ $country->title }}
+                                    </a>
+                                @endif
+                            @empty
+                                <p class="text-muted pb-0 mb-0">{{ __('No available countries.') }}</p>
+                            @endforelse
+                        </div>
                     </div>
-                </div>
+                @endif
             @empty
                 <p class="text-muted pb-0 mb-0">{{ __('No available regions.') }}</p>
             @endforelse

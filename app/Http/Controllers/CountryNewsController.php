@@ -89,4 +89,33 @@ class CountryNewsController extends Controller
                 return back()->with('error', $throwable->getMessage());
         }
     }
+
+    public function newsByState(string $region, string $country, string $state): Renderable|RedirectResponse
+    {
+        try {
+            $region_ = $this->countryService
+                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region);
+            $country_ = $this->countryService
+                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region . '/' . $country);
+            $state = $this->countryService
+                ->getCountryByAttribute('link', '/' . 'countries' . '/' . $region . '/' . $country . '/' . $state);
+
+            return view('country_news.state')
+                ->with([
+                    'link' => $state,
+                    'webData' => $state->webData,
+                    'region' => $region_,
+                    'country' => $country_,
+                    'states' => $country_->children,
+                    'currentState' => $state,
+                    'news' => $this->newsService
+                        ->getNewsByAttribute('country_id', $state->id)
+                ]);
+        } catch (Throwable $throwable) {
+            if (config('app.env') !== 'production')
+                throw $throwable;
+            else
+                return back()->with('error', $throwable->getMessage());
+        }
+    }
 }

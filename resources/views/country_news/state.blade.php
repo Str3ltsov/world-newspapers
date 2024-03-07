@@ -19,7 +19,8 @@
                 <div class="d-flex flex-wrap gap-2">
                     @forelse($states as $state)
                         @if ($state->active && $state->children->isEmpty())
-                            <a href="{{ url($state->link) }}" class="btn rounded-0 state-link">
+                            <a href="{{ url($state->link) }}" 
+                                class="btn rounded-0 state-link @if ($state->id === $currentState->id) state-link-active @endif">
                                 {{ $state->title }}
                             </a>
                         @endif
@@ -41,7 +42,8 @@
                         <div class="d-flex flex-wrap gap-2">
                             @forelse($state->children as $state)
                                 @if ($state->active)
-                                    <a href="{{ url($state->link) }}" class="btn rounded-0 state-link">
+                                    <a href="{{ url($state->link) }}" 
+                                        class="btn rounded-0 state-link @if ($state->id === $currentState->id) state-link-active @endif">
                                         {{ $state->title }}
                                     </a>
                                 @endif
@@ -56,12 +58,12 @@
     @endif
     <div class="bg-white px-3 py-4">
         <div class="d-flex flex-column gap-4 pb-2">
-            @if ($country->flag)
+            @if ($currentState->flag)
                 <div class="d-flex gap-3">
-                    <img src="{{ asset('images/flags/countries/'.$country->flag) }}" 
-                        alt="{{ $country->flag_alt }}" class="img-fluid" 
+                    <img src="{{ asset('images/flags/states/'.$currentState->flag) }}" 
+                        alt="{{ $currentState->flag_alt }}" class="img-fluid" 
                         style="width: 180px; height: 110px; border: 1px solid #E7E7E7;">
-                    <p class="mb-0 pb-0 text-muted">{{ $country->flag_info ? $country->flag_info : null }}</p>
+                    <p class="mb-0 pb-0 text-muted">{{ $currentState->flag_info ? $currentState->flag_info : null }}</p>
                 </div>
             @endif
             <div class="d-flex flex-column gap-3">
@@ -106,6 +108,11 @@
                 background-color: #cd5360;
                 color: #E4E4E4;
             }
+        }
+
+        .state-link-active {
+            background-color: #cd5360;
+            color: #E4E4E4;
         }
 
         .news-link {

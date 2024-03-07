@@ -16,9 +16,11 @@
             <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
             <div class="d-flex flex-wrap gap-2">
                 @forelse($countries as $country)
-                    <a href="{{ url($country->link) }}" class="btn rounded-0 country-link">
-                        {{ $country->title }}
-                    </a>
+                    @if ($country->active)
+                        <a href="{{ url($country->link) }}" class="btn rounded-0 country-link">
+                            {{ $country->title }}
+                        </a>
+                    @endif
                 @empty
                     <p class="text-muted pb-0 mb-0">{{ __('No available countries.') }}</p>
                 @endforelse
@@ -31,18 +33,23 @@
                 @if ($loop->first)
                     <hr class="p-0 m-0 border-1 opacity-25">
                 @endif
-                <div class="d-flex gap-3">
-                    @if ($newsRecord->logo)
-                        <img src="{{ asset('images/news_logos/'.$newsRecord->logo) }}" alt="{{ $newsRecord->logo_alt }}" 
-                            style="width: 120px; height: 50px; object-fit: contain; cursor: pointer cursor: pointer" onclick="redirectAway('{{ $newsRecord->url }}')">
-                    @endif
-                    <div class="d-flex flex-column">
-                        <a href="{{ $newsRecord->url }}" target="_blank" class="magazine-link text-decoration-none">
-                            {{ $newsRecord->title }}
-                        </a>
-                        <p class="mb-0 pb-0 text-muted">{{ $newsRecord->description ? $newsRecord->description : null }}</p>
+                @if ($newsRecord->active)
+                    <div class="d-flex gap-3">
+                        @if ($newsRecord->logo)
+                            <img src="{{ asset('images/news_logos/'.$newsRecord->logo) }}" alt="{{ $newsRecord->logo_alt }}" 
+                                style="width: 120px; height: 50px; object-fit: contain; cursor: pointer cursor: pointer" 
+                                onclick="redirectAway('{{ $newsRecord->url }}')">
+                        @endif
+                        <div class="d-flex flex-column">
+                            <a href="{{ $newsRecord->url }}" target="_blank" class="magazine-link text-decoration-none">
+                                {{ $newsRecord->title }}
+                            </a>
+                            <p class="mb-0 pb-0 text-muted">
+                                {{ $newsRecord->description ? $newsRecord->description : null }}
+                            </p>
+                        </div>
                     </div>
-                </div>
+                @endif
                 @if (!$loop->last)
                     <hr class="p-0 m-0 border-1 opacity-25">
                 @endif

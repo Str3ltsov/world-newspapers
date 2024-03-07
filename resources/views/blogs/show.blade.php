@@ -43,6 +43,16 @@
             p {
                 color: #797979;
             }
+
+            a {
+                text-decoration: none;
+                color: #438496;
+                transition: color 200ms ease;
+
+                &:hover, &:focus {
+                    color: #336674;
+                }
+            }
         }
     </style>
 @endsection

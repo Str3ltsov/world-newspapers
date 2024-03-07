@@ -18,7 +18,7 @@
                     <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
                     <ul class="ps-3 pe-1 pb-0 mb-0">
                         @forelse($news as $newsRecord)
-                            @if ($subcategory->id === $newsRecord->link_id)
+                            @if ($newsRecord->active && $subcategory->id === $newsRecord->link_id)
                                 <li class="text-muted">
                                     <a href="{{ $newsRecord->url }}" target="_blank" class="news-link p-0">
                                         {{ $newsRecord->title }}

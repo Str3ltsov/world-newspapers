@@ -29,18 +29,20 @@
     <div class="bg-white px-3 py-4">
         <div class="d-flex flex-column gap-3">
             @forelse ($magazines as $magazine)
-                <div class="d-flex gap-3">
-                    @if ($magazine->cover)
-                        <img src="{{ asset('images/magazine_covers/'.$magazine->cover) }}" alt="{{ $magazine->cover_alt }}" 
-                            style="width: 120px; max-height: 170px; cursor: pointer" onclick="redirectAway('{{ $magazine->url }}')">
-                    @endif
-                    <div class="d-flex flex-column">
-                        <a href="{{ $magazine->url }}" target="_blank" class="magazine-link text-decoration-none">
-                            {{ $magazine->title }}
-                        </a>
-                        <p class="mb-0 pb-0 text-muted">{{ $magazine->description ? $magazine->description : null }}</p>
+                @if ($magazine->active)
+                    <div class="d-flex gap-3">
+                        @if ($magazine->cover)
+                            <img src="{{ asset('images/magazine_covers/'.$magazine->cover) }}" alt="{{ $magazine->cover_alt }}" 
+                                style="width: 120px; max-height: 170px; cursor: pointer" onclick="redirectAway('{{ $magazine->url }}')">
+                        @endif
+                        <div class="d-flex flex-column">
+                            <a href="{{ $magazine->url }}" target="_blank" class="magazine-link text-decoration-none">
+                                {{ $magazine->title }}
+                            </a>
+                            <p class="mb-0 pb-0 text-muted">{{ $magazine->description ? $magazine->description : null }}</p>
+                        </div>
                     </div>
-                </div>
+                @endif
                 @if (!$loop->last)
                     <hr class="p-0 m-0 border-1 opacity-25">
                 @endif

@@ -15,12 +15,14 @@
             </ol>
           </nav>
     </div>
-    <div class="text-center py-2" style="background-color: #438496;">
-        <h6 class="text-white text-uppercase mb-0">
-            @yield('heading')
-        </h6>
-    </div>
-    @yield('content')
+    @hasSection('heading')
+        <div class="text-center py-2" style="background-color: #438496;">
+            <h6 class="text-white text-uppercase mb-0">
+                @yield('heading')
+            </h6>
+        </div>
+        @yield('content')
+    @endif
 </main>
 
 <style>

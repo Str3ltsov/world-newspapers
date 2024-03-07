@@ -25,11 +25,31 @@ class BlogController extends Controller
             $link = $this->linkService
                 ->getLinkByAttribute('link', '/' . Route::current()->uri);
 
-            return view('blog.index')
+            return view('blogs.index')
                 ->with([
                     'link' => $link,
                     'webData' => $link->webData,
                     'blogs' => $this->nodeService->getNodesByAttribute('type_id', Type::BLOG)
+                ]);
+        } catch (Throwable $throwable) {
+            if (config('app.env') !== 'production')
+                throw $throwable;
+            else
+                return back()->with('error', $throwable->getMessage());
+        }
+    }
+
+    public function show(string $title): Renderable|RedirectResponse
+    {
+        try {
+            $link = $this->linkService
+                ->getLinkByAttribute('link', '/' . 'blogs');
+
+            return view('blogs.show')
+                ->with([
+                    'link' => $link,
+                    'webData' => $link->webData,
+                    'blog' => $this->nodeService->getNodeByAttribute('path', '/' . 'blogs' . '/' . $title)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

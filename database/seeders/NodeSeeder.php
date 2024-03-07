@@ -167,7 +167,7 @@ class NodeSeeder extends Seeder
                 'comment_status' => 1,
                 'comment_count' => 0,
                 'promote' => false,
-                'path' => '/blog/is-online-dating-right-for-you',
+                'path' => '/blogs/is-online-dating-right-for-you',
                 'terms' => null,
                 'sticky' => false,
                 'left' => 3,

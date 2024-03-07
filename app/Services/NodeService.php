@@ -13,6 +13,22 @@ class NodeService
         return Node::all();
     }
 
+    public function getNodeByAttribute(string $attributeName, mixed $atrributeValue): ?Node
+    {
+        $nodeModel = new Node;
+
+        if (array_search($attributeName, $nodeModel->getFillable())) {
+            $node = Node::where($attributeName, $atrributeValue)->first();
+
+            if (!$node)
+                throw new Exception(__('Node not found'));
+
+            return $node;
+        }
+
+        return null;
+    }
+
     public function getNodesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
     {
         $nodeModel = new Node;

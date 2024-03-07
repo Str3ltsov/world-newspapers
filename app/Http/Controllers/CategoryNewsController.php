@@ -41,7 +41,7 @@ class CategoryNewsController extends Controller
         }
     }
 
-    public function show(string $category): Renderable|RedirectResponse
+    public function newsByCategory(string $category): Renderable|RedirectResponse
     {
         try {
             $link = $this->linkService

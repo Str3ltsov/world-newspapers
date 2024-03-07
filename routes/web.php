@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryNewsController;
 use App\Http\Controllers\CountryNewsController;
 use App\Http\Controllers\HomeController;
@@ -32,3 +33,5 @@ Route::get('/news/{category}', [CategoryNewsController::class, 'newsByCategory']
 Route::get('/countries', [CountryNewsController::class, 'index'])->name('regions');
 Route::get('/countries/{region}', [CountryNewsController::class, 'newsByRegion'])->name('newsByRegion');
 Route::get('/countries/{region}/{country}', [CountryNewsController::class, 'newsByCountry'])->name('newsByCountry');
+// Blog
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');

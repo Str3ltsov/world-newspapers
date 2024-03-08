@@ -30,8 +30,8 @@
                 @yield('heading')
             </h6>
         </div>
-        @yield('content')
     @endif
+    @yield('content')
 </main>
 
 <style>

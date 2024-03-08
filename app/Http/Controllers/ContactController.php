@@ -13,20 +13,23 @@ use Throwable;
 
 class ContactController extends Controller
 {
+    private string $currentLink;
+
     public function __construct(
         private LinkService $linkService,
         private ContactService $contactService
     ) {
+        $this->currentLink = '/' . request()->path();
     }
 
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', $this->currentLink);
 
             return view('contact.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData
                 ]);

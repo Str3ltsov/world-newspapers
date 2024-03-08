@@ -68,7 +68,7 @@ class LinkService
     private function formatSplitLinkTitle(string $splitLink): string
     {
         $formatedSplitLinkArray = [];
-        $splitSplitLink = explode('-', $splitLink);
+        $splitSplitLink = preg_split("/[\s-]/", $splitLink);
 
         for ($i = 0; $i < count($splitSplitLink); $i++) {
             if ($splitSplitLink[$i] === 'and') {

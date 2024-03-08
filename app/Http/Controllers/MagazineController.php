@@ -12,22 +12,25 @@ use Throwable;
 
 class MagazineController extends Controller
 {
+    private string $currentLink;
+
     public function __construct(
         private LinkService $linkService,
         private MagazineService $magazineService
     ) {
+        $this->currentLink = '/' . request()->path();
     }
 
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', $this->currentLink);
             $animalsLink = $this->linkService
-                ->getLinkByAttribute('link', '/' . Route::current()->uri . '/animals');
+                ->getLinkByAttribute('link', $this->currentLink . '/animals');
 
             return view('magazines.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $animalsLink->children,
@@ -50,7 +53,7 @@ class MagazineController extends Controller
 
             return view('magazines.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($category->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $category,
                     'webData' => $category->webData,
                     'subcategories' => $category->children,
@@ -75,7 +78,7 @@ class MagazineController extends Controller
 
             return view('magazines.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($subcategoryLink->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $subcategoryLink,
                     'webData' => $subcategoryLink->webData,
                     'subcategories' => $categoryLink->children,

@@ -13,20 +13,23 @@ use Throwable;
 
 class BlogController extends Controller
 {
+    private string $currentLink;
+
     public function __construct(
         private LinkService $linkService,
         private NodeService $nodeService
     ) {
+        $this->currentLink = '/' . request()->path();
     }
 
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', $this->currentLink);
 
             return view('blogs.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData,
                     'blogs' => $this->nodeService->getNodesByAttribute('type_id', Type::BLOG)
@@ -46,7 +49,7 @@ class BlogController extends Controller
 
             return view('blogs.show')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData,
                     'blog' => $this->nodeService->getNodeByAttribute('path', '/blogs/' . $title)

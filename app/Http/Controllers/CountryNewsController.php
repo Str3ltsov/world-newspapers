@@ -13,21 +13,24 @@ use Throwable;
 
 class CountryNewsController extends Controller
 {
+    private string $currentLink;
+
     public function __construct(
         private LinkService $linkService,
         private CountryService $countryService,
         private NewsService $newsService
     ) {
+        $this->currentLink = '/' . request()->path();
     }
 
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', $this->currentLink);
 
             return view('country_news.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
@@ -48,7 +51,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.region')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($region->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $region,
                     'webData' => $region->webData,
                     'region' => $region,
@@ -74,7 +77,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.country')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($country->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $country,
                     'webData' => $country->webData,
                     'region' => $region_,
@@ -103,7 +106,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.state')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($state->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $state,
                     'webData' => $state->webData,
                     'region' => $region_,

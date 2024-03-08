@@ -13,10 +13,13 @@ use Throwable;
 
 class CustomPageController extends Controller
 {
+    private string $currentLink;
+
     public function __construct(
         private LinkService $linkService,
-        private NodeService $nodeService
+        private NodeService $nodeService,
     ) {
+        $this->currentLink = '/' . request()->path();
     }
 
     public function index(string $page): Renderable|RedirectResponse
@@ -27,15 +30,18 @@ class CustomPageController extends Controller
 
             return view('custom_page.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData,
                     'page' => $this->nodeService->getNodeByAttribute('path', $path)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') !== 'production') {
+                if ($throwable->getMessage() === 'Link not found')
+                    return view('page_not_found')
+                        ->with('linkBreadcrumb', $this->linkService->createLinkBreadcrumb($this->currentLink));
                 throw $throwable;
-            else
+            } else
                 return back()->with('error', $throwable->getMessage());
         }
     }

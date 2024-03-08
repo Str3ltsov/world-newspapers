@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Contact;
+use App\Models\Message;
 use Exception;
 
 class ContactService
@@ -21,5 +22,16 @@ class ContactService
         }
 
         return null;
+    }
+
+    public function createMessageFromFormInput(int $contactId, array $formInput): void
+    {
+        Message::create([
+            'contact_id' => $contactId,
+            'name' => $formInput['name'],
+            'email' => $formInput['email'],
+            'title' => $formInput['subject'],
+            'body' => $formInput['message']
+        ]);
     }
 }

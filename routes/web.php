@@ -41,5 +41,6 @@ Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 Route::get('/blogs/{title}', [BlogController::class, 'show'])->name('blog');
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'sendMessage'])->name('sendMessage');
 // Custom pages (about us, privacy policy)
 Route::get('/{page}', [CustomPageController::class, 'index'])->name('customPage');

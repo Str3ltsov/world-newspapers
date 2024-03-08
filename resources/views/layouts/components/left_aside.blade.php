@@ -1,11 +1,12 @@
 <aside class="d-flex flex-column gap-3 col-md-3 order-2 order-sm-2 order-md-1">
     <div class="bg-white p-3">
-        <form class="input-group" action="" method="">
-            <input type="text" class="form-control rounded-0 bg-white" placeholder="Search..." aria-label="Searchbar" aria-describedby="search-button">
-            <button class="btn rounded-0 text-white" type="submit" id="search-button">
+        <div class="input-group">
+            <input type="text" class="form-control rounded-0 bg-white" id="search-input"
+                placeholder="Search..." aria-label="Searchbar" aria-describedby="search-button">
+            <button class="btn rounded-0 text-white" type="button" id="search-button">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </button>
-        </form>
+        </div>
     </div>
     <div class="bg-white p-3">
         <h6 class="fw-bold text-uppercase px-1 pb-1" style="color: #cd5360;">
@@ -42,3 +43,25 @@
         }
     }
 </style>
+
+<script>
+    const googleSearchThisWebsite = () => {
+        const searchInput = document.getElementById('search-input')
+        const searchButton = document.getElementById('search-button')
+
+        searchButton.addEventListener('click', () => {
+            window.open(
+                `https://www.google.com/search?sitesearch=world-newspapers.com&q=${searchInput.value}`, 
+                "_blank"
+            )
+        })
+
+        searchInput.addEventListener('keypress', event => {
+            if (event.keyCode === 13) {
+                searchButton.click();
+            }
+        })
+    }
+    
+    googleSearchThisWebsite()
+</script>

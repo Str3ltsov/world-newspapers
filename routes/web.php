@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryNewsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CountryNewsController;
 use App\Http\Controllers\CustomPageController;
 use App\Http\Controllers\HomeController;
@@ -38,5 +39,7 @@ Route::get('/countries/{region}/{country}/{title}', [CountryNewsController::clas
 // Blogs
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 Route::get('/blogs/{title}', [BlogController::class, 'show'])->name('blog');
+// Contact
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 // Custom pages (about us, privacy policy)
 Route::get('/{page}', [CustomPageController::class, 'index'])->name('customPage');

@@ -1,4 +1,4 @@
-<main class="d-flex flex-column gap-3 col-md-6 order-1 order-sm-1 order-md-2">
+<main class="d-flex flex-column gap-3 col-md-6 order-1 order-sm-1 order-md-2 mb-3">
     <div class="bg-white p-3">
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="page-breadcrumb">
             <ol class="breadcrumb" style="margin: 7px 0">

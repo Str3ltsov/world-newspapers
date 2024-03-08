@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Country;
-use App\Models\Link;
-use App\Models\Node;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Link;
 use Exception;
 
 class LinkService
@@ -68,20 +66,14 @@ class LinkService
     private function formatSplitLinkTitle(string $splitLink): string
     {
         $formatedSplitLinkArray = [];
-        $splitSplitLink = preg_split("/[\s-]/", $splitLink);
+        $splitSplitLink = preg_split("/[\_,-]/", $splitLink);
 
         for ($i = 0; $i < count($splitSplitLink); $i++) {
-            if ($splitSplitLink[$i] === 'and') {
-                $formatedSplitLinkArray[] = '&';
-                continue;
-            }
-            if ($splitSplitLink[$i] === 'usa') {
-                $formatedSplitLinkArray[] = 'USA';
-                continue;
-            }
-
-            $formatedSplitLinkArray[] = ucfirst($splitSplitLink[$i]);
-            continue;
+            $formatedSplitLinkArray[] = match ($splitSplitLink[$i]) {
+                'and' => '&',
+                'usa' => 'USA',
+                default => ucfirst($splitSplitLink[$i])
+            };
         }
         return implode(' ', $formatedSplitLinkArray);
     }

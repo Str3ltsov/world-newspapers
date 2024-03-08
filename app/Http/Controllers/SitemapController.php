@@ -31,7 +31,7 @@ class SitemapController extends Controller
 
             return view('sitemap.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromNode($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService

@@ -27,7 +27,7 @@ class CustomPageController extends Controller
 
             return view('custom_page.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromNode($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'page' => $this->nodeService->getNodeByAttribute('path', $path)

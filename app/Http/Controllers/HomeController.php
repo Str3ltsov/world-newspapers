@@ -25,7 +25,7 @@ class HomeController extends Controller
 
             return view('home.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService

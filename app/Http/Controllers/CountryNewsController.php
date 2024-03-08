@@ -27,7 +27,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
@@ -48,7 +48,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.region')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($region->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($region->link),
                     'link' => $region,
                     'webData' => $region->webData,
                     'region' => $region,
@@ -74,7 +74,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.country')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($country->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($country->link),
                     'link' => $country,
                     'webData' => $country->webData,
                     'region' => $region_,
@@ -103,7 +103,7 @@ class CountryNewsController extends Controller
 
             return view('country_news.state')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromCountry($state->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($state->link),
                     'link' => $state,
                     'webData' => $state->webData,
                     'region' => $region_,

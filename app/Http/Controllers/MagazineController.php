@@ -27,7 +27,7 @@ class MagazineController extends Controller
 
             return view('magazines.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $animalsLink->children,
@@ -50,7 +50,7 @@ class MagazineController extends Controller
 
             return view('magazines.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($category->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($category->link),
                     'link' => $category,
                     'webData' => $category->webData,
                     'subcategories' => $category->children,
@@ -75,7 +75,7 @@ class MagazineController extends Controller
 
             return view('magazines.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($subcategoryLink->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($subcategoryLink->link),
                     'link' => $subcategoryLink,
                     'webData' => $subcategoryLink->webData,
                     'subcategories' => $categoryLink->children,

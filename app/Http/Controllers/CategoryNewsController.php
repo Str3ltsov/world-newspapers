@@ -27,7 +27,7 @@ class CategoryNewsController extends Controller
 
             return view('category_news.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $worldNewsLink->children,
@@ -48,7 +48,7 @@ class CategoryNewsController extends Controller
 
             return view('category_news.index')
                 ->with([
-                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromLink($link->link),
+                    'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $link->children,

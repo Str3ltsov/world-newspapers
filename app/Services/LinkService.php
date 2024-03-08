@@ -39,7 +39,7 @@ class LinkService
         return $categoryLinks;
     }
 
-    public function createLinkBreadcrumbFromLink(string $link): array
+    public function createLinkBreadcrumb(string $link): array
     {
         $splitLink = $this->createSplitLink($link);
         $linkPath = '';
@@ -47,56 +47,11 @@ class LinkService
 
         for ($i = 0; $i < count($splitLink); $i++) {
             $linkPath = $linkPath . '/' . $splitLink[$i];
-            $linkModel = Link::select('title', 'link')->where('link', $linkPath)->first();
+            $formatedSplitLinkTitle = $this->formatSplitLinkTitle($splitLink[$i]);
 
             $linkBreadcrumb[] = [
-                'title' => $linkModel->title,
-                'path' => $linkModel->link
-            ];
-        }
-        return $linkBreadcrumb;
-    }
-
-    public function createLinkBreadcrumbFromCountry(string $link): array
-    {
-        $splitLink = $this->createSplitLink($link);
-        $linkPath = '';
-        $linkBreadcrumb = [];
-
-        for ($i = 0; $i < count($splitLink); $i++) {
-            $linkPath = $linkPath . '/' . $splitLink[$i];
-            $linkModel = null;
-
-            if ($i === 0)
-                $linkModel = Link::select('title', 'link')->where('link', $linkPath)->first();
-            else
-                $linkModel = Country::select('title', 'link')->where('link', $linkPath)->first();
-
-            $linkBreadcrumb[] = [
-                'title' => $linkModel->title,
-                'path' => $linkModel->link
-            ];
-        }
-        return $linkBreadcrumb;
-    }
-
-    public function createLinkBreadcrumbFromNode(string $link): array
-    {
-        $splitLink = $this->createSplitLink($link);
-        $linkPath = '';
-        $linkBreadcrumb = [];
-
-        for ($i = 0; $i < count($splitLink); $i++) {
-            $linkPath = $linkPath . '/' . $splitLink[$i];
-
-            if ($i === 0)
-                $linkModel = Link::select('title', 'link')->where('link', $linkPath)->first();
-            else
-                $linkModel = Node::select('title', 'path')->where('path', $linkPath)->first();
-
-            $linkBreadcrumb[] = [
-                'title' => $linkModel->title,
-                'path' => $linkModel->link
+                'title' => $formatedSplitLinkTitle,
+                'path' => $linkPath
             ];
         }
         return $linkBreadcrumb;
@@ -108,5 +63,26 @@ class LinkService
         array_shift($splitLink);
 
         return $splitLink;
+    }
+
+    private function formatSplitLinkTitle(string $splitLink): string
+    {
+        $formatedSplitLinkArray = [];
+        $splitSplitLink = explode('-', $splitLink);
+
+        for ($i = 0; $i < count($splitSplitLink); $i++) {
+            if ($splitSplitLink[$i] === 'and') {
+                $formatedSplitLinkArray[] = '&';
+                continue;
+            }
+            if ($splitSplitLink[$i] === 'usa') {
+                $formatedSplitLinkArray[] = 'USA';
+                continue;
+            }
+
+            $formatedSplitLinkArray[] = ucfirst($splitSplitLink[$i]);
+            continue;
+        }
+        return implode(' ', $formatedSplitLinkArray);
     }
 }

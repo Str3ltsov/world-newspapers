@@ -4,22 +4,30 @@
     <!-- Metas -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
+    <meta name="title" content="@yield('title')">
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title -->
-    <title>{{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }}</title>
+    <title>
+        @hasSection('title') 
+            @yield('title') 
+        @else 
+            {{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }} 
+        @endif
+    </title>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
-    <!-- Fonts -->
     <!-- Styles -->
     @stack('styles')
     <!-- Scripts -->
+    <script src="{{ asset('js/helpers.js') }}"></script>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('scripts')
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <div id="app" style="width: 100%; min-height: 100vh; display: flex; flex-direction: column;">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -71,11 +79,18 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        </nav> --}}
+        @include('layouts.components.header')
+        @include('layouts.components.logo_area')
+        @include('layouts.components.main_menu')
+        <div class="container my-3">
+            <div class="row">
+                @include('layouts.components.left_aside')
+                @include('layouts.components.main')
+                @include('layouts.components.right_aside')
+            </div>
+        </div>
+        @include('layouts.components.footer')
     </div>
 </body>
 </html>

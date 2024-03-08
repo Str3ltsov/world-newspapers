@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -57,9 +58,9 @@ class Link extends Model
         'publish_end' => 'datetime'
     ];
 
-    public function parent(): HasOne
+    public function parent(): BelongsTo
     {
-        return $this->hasOne(Link::class, 'id', 'parent_id');
+        return $this->belongsTo(Link::class, 'parent_id');
     }
 
     public function children(): HasMany
@@ -67,9 +68,9 @@ class Link extends Model
         return $this->hasMany(Link::class, 'parent_id', 'id');
     }
 
-    public function menu(): HasOne
+    public function menu(): BelongsTo
     {
-        return $this->hasOne(Menu::class, 'id', 'menu_id');
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 
     public function webData(): HasOne

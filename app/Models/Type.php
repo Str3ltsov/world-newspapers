@@ -12,6 +12,7 @@ class Type extends Model
     const PAGE = 1;
     const BLOG = 2;
     const NODE = 3;
+    const ATTACHMENT = 4;
 
     protected $table = 'newspapers_types';
 

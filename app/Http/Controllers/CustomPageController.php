@@ -23,8 +23,7 @@ class CustomPageController extends Controller
     {
         try {
             $path = '/' . $page;
-            $link = $this->linkService
-                ->getLinkByAttribute('link', $path);
+            $link = $this->linkService->getLinkByAttribute('link', $path);
 
             return view('custom_page.index')
                 ->with([

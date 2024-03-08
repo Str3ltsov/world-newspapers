@@ -8,14 +8,14 @@ use Exception;
 
 class NewsService
 {
-    public function getNewsByAttribute(string $attributeName, mixed $atrributeValue, bool $active): ?Collection
+    public function getNewsByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
     {
         $newsModel = new News;
 
         if (array_search($attributeName, $newsModel->getFillable())) {
             $news = News::where([
                 $attributeName => $atrributeValue,
-                'active' => $active
+                'active' => true
             ])->get();
 
             if (!$news)

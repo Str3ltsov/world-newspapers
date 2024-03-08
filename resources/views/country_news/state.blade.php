@@ -97,6 +97,11 @@
             </div>
         </div>
     </div>
+    @if ($state->body)
+        <div class="bg-white px-3 pt-3">
+            <div class="state-body">{!! $state->body !!}</div>
+        </div>
+    @endif
 
     <style>  
         .state-link {
@@ -115,7 +120,11 @@
             color: #E4E4E4;
         }
 
-        .news-link {
+        .state-body p {
+            color: #797979;
+        }
+
+        .news-link, .state-body a {
             text-decoration: none;
             color: #438496;
             transition: color 200ms ease;

@@ -58,9 +58,14 @@
             @endforelse
         </div>
     </div>
+    @if ($region->body)
+        <div class="bg-white px-3 pt-3">
+            <div class="region-body">{!! $region->body !!}</div>
+        </div>
+    @endif
 
     <style>  
-        .region-link {
+        .region-link, region-body a {
             color: #438496;
             transition: color 200ms ease;
 
@@ -68,6 +73,10 @@
                 color: #336674;
             }
         }  
+
+        .region-body p {
+            color: #797979;
+        }
 
         .country-link {
             background-color: #E4E4E4;

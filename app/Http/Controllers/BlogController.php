@@ -22,8 +22,7 @@ class BlogController extends Controller
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService
-                ->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
 
             return view('blogs.index')
                 ->with([
@@ -43,15 +42,14 @@ class BlogController extends Controller
     public function show(string $title): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService
-                ->getLinkByAttribute('link', '/blogs');
+            $link = $this->linkService->getLinkByAttribute('link', '/blogs');
 
             return view('blogs.show')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumbFromNode($link->link),
                     'link' => $link,
                     'webData' => $link->webData,
-                    'blog' => $this->nodeService->getNodeByAttribute('path', '/' . 'blogs' . '/' . $title)
+                    'blog' => $this->nodeService->getNodeByAttribute('path', '/blogs/' . $title)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

@@ -16,16 +16,14 @@ class CountryNewsController extends Controller
     public function __construct(
         private LinkService $linkService,
         private CountryService $countryService,
-        private NewsService $newsService,
-        private bool $activeNews = true
+        private NewsService $newsService
     ) {
     }
 
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService
-                ->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
 
             return view('country_news.index')
                 ->with([
@@ -33,7 +31,7 @@ class CountryNewsController extends Controller
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
-                        ->getCountriesByAttribute('parent_id', null, $this->activeNews)
+                        ->getCountriesByAttribute('parent_id', null)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -46,8 +44,7 @@ class CountryNewsController extends Controller
     public function newsByRegion(string $region): Renderable|RedirectResponse
     {
         try {
-            $region = $this->countryService
-                ->getCountryByAttribute('link', '/countries/' . $region);
+            $region = $this->countryService->getCountryByAttribute('link', '/countries/' . $region);
 
             return view('country_news.region')
                 ->with([
@@ -57,7 +54,7 @@ class CountryNewsController extends Controller
                     'region' => $region,
                     'countries' => $region->children,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $region->id, $this->activeNews)
+                        ->getNewsByAttribute('country_id', $region->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -84,7 +81,7 @@ class CountryNewsController extends Controller
                     'country' => $country,
                     'states' => $country->children,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $country->id, $this->activeNews)
+                        ->getNewsByAttribute('country_id', $country->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -114,7 +111,7 @@ class CountryNewsController extends Controller
                     'states' => $country_->children,
                     'currentState' => $state,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $state->id, $this->activeNews)
+                        ->getNewsByAttribute('country_id', $state->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

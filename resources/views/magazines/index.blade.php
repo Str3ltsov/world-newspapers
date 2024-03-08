@@ -51,6 +51,11 @@
             @endforelse
         </div>
     </div>
+    @if ($link->body)
+        <div class="bg-white px-3 pt-3">
+            <div class="link-body">{!! $link->body !!}</div>
+        </div>
+    @endif
 
     <style>  
         .subcategory-link {
@@ -69,7 +74,11 @@
             color: #E4E4E4;
         }
 
-        .magazine-link {
+        .link-body p {
+            color: #797979;
+        }
+
+        .magazine-link, .link-body a {
             color: #438496;
             transition: color 200ms ease;
 

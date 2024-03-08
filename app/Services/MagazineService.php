@@ -8,14 +8,14 @@ use Exception;
 
 class MagazineService
 {
-    public function getMagazinesByAttribute(string $attributeName, mixed $atrributeValue, bool $active): ?Collection
+    public function getMagazinesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
     {
         $magazineModel = new Magazine;
 
         if (array_search($attributeName, $magazineModel->getFillable())) {
             $magazines = Magazine::where([
                 $attributeName => $atrributeValue,
-                'active' => $active
+                'active' => true
             ])
                 ->orderBy('title')
                 ->get();

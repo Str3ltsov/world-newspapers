@@ -14,16 +14,14 @@ class MagazineController extends Controller
 {
     public function __construct(
         private LinkService $linkService,
-        private MagazineService $magazineService,
-        private bool $activeMagazines = true
+        private MagazineService $magazineService
     ) {
     }
 
     public function index(): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService
-                ->getLinkByAttribute('link', '/' . Route::current()->uri);
+            $link = $this->linkService->getLinkByAttribute('link', '/' . Route::current()->uri);
             $animalsLink = $this->linkService
                 ->getLinkByAttribute('link', '/' . Route::current()->uri . '/animals');
 
@@ -34,7 +32,7 @@ class MagazineController extends Controller
                     'webData' => $link->webData,
                     'subcategories' => $animalsLink->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $animalsLink->id, $this->activeMagazines)
+                        ->getMagazinesByAttribute('link_id', $animalsLink->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -57,7 +55,7 @@ class MagazineController extends Controller
                     'webData' => $category->webData,
                     'subcategories' => $category->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $category->id, $this->activeMagazines)
+                        ->getMagazinesByAttribute('link_id', $category->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')
@@ -82,7 +80,7 @@ class MagazineController extends Controller
                     'webData' => $subcategoryLink->webData,
                     'subcategories' => $categoryLink->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $subcategoryLink->id, $this->activeMagazines)
+                        ->getMagazinesByAttribute('link_id', $subcategoryLink->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') !== 'production')

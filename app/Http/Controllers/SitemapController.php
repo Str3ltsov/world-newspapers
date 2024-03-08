@@ -20,8 +20,7 @@ class SitemapController extends Controller
         private LinkService $linkService,
         private CountryService $countryService,
         private MagazineService $magazineService,
-        private NewsService $newsService,
-        private bool $activeRecords = true
+        private NewsService $newsService
     ) {
     }
 
@@ -36,7 +35,7 @@ class SitemapController extends Controller
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
-                        ->getCountriesByAttribute('parent_id', null, $this->activeRecords),
+                        ->getCountriesByAttribute('parent_id', null),
                     'usCountry' => $this->countryService
                         ->getCountryByAttribute('link', '/countries/north-and-central-america/usa'),
                     'magazines' => $this->linkService->getLinkByAttribute('link', '/magazines'),

@@ -36,18 +36,18 @@
             @endforelse
         </div>
     </div>
+    @if ($link->body)
+        <div class="bg-white px-3 pt-3">
+            <div class="link-body">{!! $link->body !!}</div>
+        </div>
+    @endif
 
-    <style>  
-        .subcategory-link {
-            color: #438496;
-            transition: color 200ms ease;
+    <style>
+        .link-body p {
+            color: #797979;
+        }
 
-            &:hover, &:focus {
-                color: #336674;
-            }
-        }  
-
-        .news-link {
+        .subcategory-link, .news-link, .link-body a {
             text-decoration: none;
             color: #438496;
             transition: color 200ms ease;

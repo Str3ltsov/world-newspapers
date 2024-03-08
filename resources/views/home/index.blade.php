@@ -38,9 +38,18 @@
             @endforelse
         </div>
     </div>
+    @if ($link->body)
+        <div class="bg-white px-3 pt-3">
+            <div class="link-body">{!! $link->body !!}</div>
+        </div>
+    @endif
 
     <style>  
-        .region-link {
+        .link-body p {
+            color: #797979;
+        }
+
+        .region-link, .link-body a {
             color: #438496;
             transition: color 200ms ease;
 

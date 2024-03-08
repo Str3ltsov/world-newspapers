@@ -24,14 +24,14 @@ class CountryService
         return null;
     }
 
-    public function getCountriesByAttribute(string $attributeName, mixed $atrributeValue, string $active): ?Collection
+    public function getCountriesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
     {
         $countryModel = new Country;
 
         if (array_search($attributeName, $countryModel->getFillable())) {
             $countries = Country::where([
                 $attributeName => $atrributeValue,
-                'active' => $active
+                'active' => true
             ])
                 ->orderByDesc('title')
                 ->get();

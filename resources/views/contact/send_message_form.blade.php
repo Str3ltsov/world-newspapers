@@ -6,7 +6,8 @@
             {{ __('Your name') }}
         </label>
         <div class="d-flex flex-column col-md-10 col-12">
-            <input type="text" class="form-control bg-white rounded-0 @error('name') is-invalid @enderror" id="name" name="name">
+            <input type="text" class="form-control bg-white rounded-0 @error('name') is-invalid @enderror" 
+                id="name" name="name">
             @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -19,7 +20,8 @@
             {{ __('Your email') }}
         </label>
         <div class="d-flex flex-column col-md-10 col-12">
-            <input type="text" class="form-control bg-white rounded-0 @error('email') is-invalid @enderror" id="email" name="email">
+            <input type="text" class="form-control bg-white rounded-0 @error('email') is-invalid @enderror" 
+                id="email" name="email">
             @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -29,10 +31,11 @@
     </div>
     <div class="col-12 d-flex flex-md-row flex-column">
         <label for="subject" class="form-label col-sm-2 text-muted">
-            {{ __('Your email') }}
+            {{ __('Subject') }}
         </label>
         <div class="d-flex flex-column col-md-10 col-12">
-            <input type="text" class="form-control bg-white rounded-0 @error('subject') is-invalid @enderror" id="subject" name="subject">
+            <input type="text" class="form-control bg-white rounded-0 @error('subject') is-invalid @enderror" 
+                id="subject" name="subject">
             @error('subject')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -45,7 +48,8 @@
             {{ __('Message') }}
         </label>
         <div class="d-flex flex-column col-md-10 col-12">
-            <textarea class="form-control bg-white rounded-0 @error('message') is-invalid @enderror" id="message" name="message" rows="5"></textarea>
+            <textarea class="form-control bg-white rounded-0 @error('message') is-invalid @enderror" 
+                id="message" name="message" rows="5"></textarea>
             @error('message')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

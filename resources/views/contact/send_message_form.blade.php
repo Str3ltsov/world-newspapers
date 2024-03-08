@@ -59,6 +59,18 @@
     </div>
     <div class="col-12 d-flex mt-1">
         <div class="col-sm-2"></div>
+        <div class="col-md-10 col-12">
+            {!! NoCaptcha::renderJs() !!}
+            {!! NoCaptcha::display() !!}
+            @error('g-recaptcha-response')
+                <div class="mt-1">
+                    <span class="text-danger fw-bold" style="font-size: .9em">{{ $message }}</span>
+                </div>
+            @enderror
+        </div>
+    </div>
+    <div class="col-12 d-flex mt-1">
+        <div class="col-sm-2"></div>
         <button type="submit" class="btn send-button text-white">
             {{ __('Send') }}
         </button>

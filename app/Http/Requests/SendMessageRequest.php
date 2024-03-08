@@ -25,7 +25,23 @@ class SendMessageRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|string|email:rfc',
             'subject' => 'nullable|string',
-            'message' => 'nullable|string'
+            'message' => 'nullable|string',
+            'g-recaptcha-response' => 'required|captcha'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'g-recaptcha-response' => [
+                'required' => 'Please verify that you are not a robot.',
+                'captcha' => 'Captcha error! try again later or contact site admin.',
+            ]
         ];
     }
 }

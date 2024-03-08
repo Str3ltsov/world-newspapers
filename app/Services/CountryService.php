@@ -32,7 +32,9 @@ class CountryService
             $countries = Country::where([
                 $attributeName => $atrributeValue,
                 'active' => $active
-            ])->get();
+            ])
+                ->orderByDesc('title')
+                ->get();
 
             if (!$countries)
                 throw new Exception(__('Countries not found'));

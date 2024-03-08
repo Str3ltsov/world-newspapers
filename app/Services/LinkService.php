@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Country;
 use App\Models\Link;
 use App\Models\Node;
+use Illuminate\Database\Eloquent\Collection;
 use Exception;
 
 class LinkService
@@ -23,6 +24,19 @@ class LinkService
         }
 
         return null;
+    }
+
+    public function getCategoryLinksByMenuId(string $menuId): Collection
+    {
+        $categoryLinks = Link::where([
+            'parent_id' => null,
+            'menu_id' => $menuId
+        ])->get();
+
+        if (!$categoryLinks)
+            throw new Exception(__('Category links not found'));
+
+        return $categoryLinks;
     }
 
     public function createLinkBreadcrumbFromLink(string $link): array

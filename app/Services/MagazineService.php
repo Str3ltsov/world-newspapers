@@ -16,7 +16,9 @@ class MagazineService
             $magazines = Magazine::where([
                 $attributeName => $atrributeValue,
                 'active' => $active
-            ])->get();
+            ])
+                ->orderBy('title')
+                ->get();
 
             if (!$magazines)
                 throw new Exception(__('Magazines not found'));

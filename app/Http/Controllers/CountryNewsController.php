@@ -8,7 +8,6 @@ use App\Services\NewsService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class CountryNewsController extends Controller
@@ -37,7 +36,7 @@ class CountryNewsController extends Controller
                         ->getCountriesByAttribute('parent_id', null)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -47,20 +46,20 @@ class CountryNewsController extends Controller
     public function newsByRegion(string $region): Renderable|RedirectResponse
     {
         try {
-            $region = $this->countryService->getCountryByAttribute('link', '/countries/' . $region);
+            $regionLink = $this->countryService->getCountryByAttribute('link', '/countries/' . $region);
 
             return view('country_news.region')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
-                    'link' => $region,
-                    'webData' => $region->webData,
-                    'region' => $region,
-                    'countries' => $region->children,
+                    'link' => $regionLink,
+                    'webData' => $regionLink->webData,
+                    'region' => $regionLink,
+                    'countries' => $regionLink->children,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $region->id)
+                        ->getNewsByAttribute('country_id', $regionLink->id)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -70,24 +69,24 @@ class CountryNewsController extends Controller
     public function newsByCountry(string $region, string $country): Renderable|RedirectResponse
     {
         try {
-            $region_ = $this->countryService
+            $regionLink = $this->countryService
                 ->getCountryByAttribute('link', '/countries/' .  $region);
-            $country = $this->countryService
+            $countryLink = $this->countryService
                 ->getCountryByAttribute('link', '/countries/' . $region . '/' . $country);
 
             return view('country_news.country')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
-                    'link' => $country,
-                    'webData' => $country->webData,
-                    'region' => $region_,
-                    'country' => $country,
-                    'states' => $country->children,
+                    'link' => $countryLink,
+                    'webData' => $countryLink->webData,
+                    'region' => $regionLink,
+                    'country' => $countryLink,
+                    'states' => $countryLink->children,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $country->id)
+                        ->getNewsByAttribute('country_id', $countryLink->id)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -97,27 +96,27 @@ class CountryNewsController extends Controller
     public function newsByState(string $region, string $country, string $state): Renderable|RedirectResponse
     {
         try {
-            $region_ = $this->countryService
+            $regionLink = $this->countryService
                 ->getCountryByAttribute('link', '/countries/' . $region);
-            $country_ = $this->countryService
+            $countryLink = $this->countryService
                 ->getCountryByAttribute('link', '/countries/' . $region . '/' . $country);
-            $state = $this->countryService
+            $stateLink = $this->countryService
                 ->getCountryByAttribute('link', '/countries/' . $region . '/' . $country . '/' . $state);
 
             return view('country_news.state')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
-                    'link' => $state,
-                    'webData' => $state->webData,
-                    'region' => $region_,
-                    'country' => $country_,
-                    'states' => $country_->children,
-                    'currentState' => $state,
+                    'link' => $stateLink,
+                    'webData' => $stateLink->webData,
+                    'region' => $regionLink,
+                    'country' => $countryLink,
+                    'states' => $countryLink->children,
+                    'currentState' => $stateLink,
                     'news' => $this->newsService
-                        ->getNewsByAttribute('country_id', $state->id)
+                        ->getNewsByAttribute('country_id', $stateLink->id)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());

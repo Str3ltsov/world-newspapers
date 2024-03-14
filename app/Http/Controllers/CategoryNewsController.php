@@ -7,7 +7,6 @@ use App\Services\NewsService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class CategoryNewsController extends Controller
@@ -37,7 +36,7 @@ class CategoryNewsController extends Controller
                     'news' => $this->newsService->getNewsByAttribute('country_id', null)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -47,18 +46,18 @@ class CategoryNewsController extends Controller
     public function newsByCategory(string $category): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/news/' . $category);
+            $categoryLink = $this->linkService->getLinkByAttribute('link', '/news/' . $category);
 
             return view('category_news.index')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
-                    'link' => $link,
-                    'webData' => $link->webData,
-                    'subcategories' => $link->children,
+                    'link' => $categoryLink,
+                    'webData' => $categoryLink->webData,
+                    'subcategories' => $categoryLink->children,
                     'news' => $this->newsService->getNewsByAttribute('country_id', null)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());

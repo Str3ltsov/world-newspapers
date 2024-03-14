@@ -7,7 +7,6 @@ use App\Services\MagazineService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class MagazineController extends Controller
@@ -38,7 +37,7 @@ class MagazineController extends Controller
                         ->getMagazinesByAttribute('link_id', $animalsLink->id)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -48,20 +47,20 @@ class MagazineController extends Controller
     public function magazinesByCategory(string $category): Renderable|RedirectResponse
     {
         try {
-            $category = $this->linkService
+            $categoryLink = $this->linkService
                 ->getLinkByAttribute('link', '/magazines/' . $category);
 
             return view('magazines.index')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
-                    'link' => $category,
-                    'webData' => $category->webData,
-                    'subcategories' => $category->children,
+                    'link' => $categoryLink,
+                    'webData' => $categoryLink->webData,
+                    'subcategories' => $categoryLink->children,
                     'magazines' => $this->magazineService
-                        ->getMagazinesByAttribute('link_id', $category->id)
+                        ->getMagazinesByAttribute('link_id', $categoryLink->id)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -86,7 +85,7 @@ class MagazineController extends Controller
                         ->getMagazinesByAttribute('link_id', $subcategoryLink->id)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());

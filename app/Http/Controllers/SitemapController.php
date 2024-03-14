@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use App\Services\ContactService;
 use App\Services\CountryService;
 use App\Services\LinkService;
 use App\Services\MagazineService;
@@ -11,7 +10,6 @@ use App\Services\NewsService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class SitemapController extends Controller
@@ -48,7 +46,7 @@ class SitemapController extends Controller
 
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());

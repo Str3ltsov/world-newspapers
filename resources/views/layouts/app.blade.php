@@ -19,10 +19,18 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
     <!-- Styles -->
+    @if (config('app.env') == 'production')
+        <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/app-B2_SLc7X.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('build/assets/app-eCr3CBEp.css') }}">
+    @endif
     @stack('styles')
     <!-- Scripts -->
+    @if (config('app.env') == 'production')
+        <script src="{{ asset('build/assets/app-2TraeheH.js') }}"></script>
+    @else
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @endif
     <script src="{{ asset('js/helpers.js') }}"></script>
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @stack('scripts')
 </head>
 <body>

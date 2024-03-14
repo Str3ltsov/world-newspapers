@@ -8,7 +8,6 @@ use App\Services\LinkService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class CustomPageController extends Controller
@@ -36,7 +35,7 @@ class CustomPageController extends Controller
                     'page' => $this->nodeService->getNodeByAttribute('path', $path)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production') {
+            if (config('app.env') != 'production') {
                 if ($throwable->getMessage() === 'Link not found')
                     return view('page_not_found')
                         ->with('linkBreadcrumb', $this->linkService->createLinkBreadcrumb($this->currentLink));

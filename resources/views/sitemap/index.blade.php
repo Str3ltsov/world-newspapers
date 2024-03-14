@@ -49,9 +49,9 @@
                     <i class="fa-solid fa-caret-down me-1"></i>
                     {{ $magazines->title }}
                 </a>
-                <ul class="list-unstyled px-4 pb-0 mb-0">
+                <ul class="list-unstyled px-4 pb-0 mb-0" style="column-count: 2">
                     @foreach($magazineCategories as $magazineCategory)
-                        <li class="mb-2">
+                        <li>
                             <a href="{{ url($magazineCategory->link) }}" class="nav-link sitemap-link">
                                 <i class="fa-solid fa-caret-right me-1"></i>
                                 {{ $magazineCategory->title }}
@@ -65,9 +65,9 @@
                     <i class="fa-solid fa-caret-down me-1"></i>
                     {{ explode(' ', $news->title)[0] }}
                 </a>
-                <ul class="list-unstyled px-4 pb-0 mb-0">
+                <ul class="list-unstyled px-4 pb-0 mb-0" style="column-count: 2">
                     @foreach($newsCategories as $newsCategory)
-                        <li class="mb-2">
+                        <li>
                             <a href="{{ url($newsCategory->link) }}" class="nav-link sitemap-link">
                                 <i class="fa-solid fa-caret-right me-1"></i>
                                 {{ $newsCategory->title }}

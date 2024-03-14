@@ -8,7 +8,6 @@ use App\Services\LinkService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Throwable;
 
 class BlogController extends Controller
@@ -35,7 +34,7 @@ class BlogController extends Controller
                     'blogs' => $this->nodeService->getNodesByAttribute('type_id', Type::BLOG)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());
@@ -45,17 +44,17 @@ class BlogController extends Controller
     public function show(string $title): Renderable|RedirectResponse
     {
         try {
-            $link = $this->linkService->getLinkByAttribute('link', '/blogs');
+            $blogLink = $this->linkService->getLinkByAttribute('link', '/blogs');
 
             return view('blogs.show')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
-                    'link' => $link,
-                    'webData' => $link->webData,
+                    'link' => $blogLink,
+                    'webData' => $blogLink->webData,
                     'blog' => $this->nodeService->getNodeByAttribute('path', '/blogs/' . $title)
                 ]);
         } catch (Throwable $throwable) {
-            if (config('app.env') !== 'production')
+            if (config('app.env') != 'production')
                 throw $throwable;
             else
                 return back()->with('error', $throwable->getMessage());

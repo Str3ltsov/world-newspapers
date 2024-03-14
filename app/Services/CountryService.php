@@ -33,7 +33,7 @@ class CountryService
                 $attributeName => $atrributeValue,
                 'active' => true
             ])
-                ->orderByDesc('title')
+                ->orderBy('title')
                 ->get();
 
             if (!$countries)

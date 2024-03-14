@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view) {
             $view
                 ->with([
-                    'headerLinks' => Menu::find(Menu::HEADER)->links,
-                    'mainMenuLinks' => Menu::find(Menu::MAIN_MENU)->links,
+                    'headerLinks' => Menu::find(Menu::HEADER)->links->sortBy(['left', 'right']),
+                    'mainMenuLinks' => Menu::find(Menu::MAIN_MENU)->links->sortBy(['left', 'right']),
                     'magazineLinks' => Menu::find(Menu::MAGAZINE)->links->where('parent_id', null),
                     'newsLinks' => Menu::find(Menu::NEWS)->links->where('parent_id', null)
                 ]);

@@ -14,7 +14,7 @@
                 </a>
             </div>
             <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
-            <div class="d-flex flex-wrap gap-2">
+            <div class="d-flex flex-wrap" style="gap: 5px">
                 @forelse($countries as $country)
                     @if ($country->active)
                         <a href="{{ url($country->link) }}" class="btn rounded-0 country-link">
@@ -82,10 +82,11 @@
             background-color: #E4E4E4;
             color: #6F6F6F;
             transition: all 200ms ease;
+            padding: 3px 8px;
     
             &:hover, &:focus {
                 background-color: #cd5360;
-                color: #E4E4E4;
+                color: #F4F4F4;
             }
         }
     </style>

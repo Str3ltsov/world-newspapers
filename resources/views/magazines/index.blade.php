@@ -8,7 +8,7 @@
 @section('content')
     @if (!$subcategories->isEmpty())
         <div class="bg-white p-3">
-            <div class="d-flex flex-wrap gap-2">
+            <div class="d-flex flex-wrap" style="gap: 5px">
                 @forelse($subcategories as $subcategory)
                     <a href="{{ url($subcategory->link) }}" 
                         class="btn rounded-0 
@@ -62,16 +62,18 @@
             background-color: #E4E4E4;
             color: #6F6F6F;
             transition: all 200ms ease;
+            padding: 3px 8px;
     
             &:hover, &:focus {
                 background-color: #cd5360;
-                color: #E4E4E4;
+                color: #F4F4F4;
             }
         }
 
         .subcategory-link-active {
             background-color: #cd5360;
-            color: #E4E4E4;
+            color: #F4F4F4;
+            padding: 3px 8px;
         }
 
         .link-body p {

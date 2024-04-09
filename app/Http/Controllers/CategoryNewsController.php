@@ -33,7 +33,8 @@ class CategoryNewsController extends Controller
                     'link' => $link,
                     'webData' => $link->webData,
                     'subcategories' => $worldNewsLink->children,
-                    'news' => $this->newsService->getNewsByAttribute('country_id', null)
+                    'news' => $this->newsService->getNewsByAttribute('country_id', null),
+                    'parentNews' => $this->newsService->getNewsByAttribute('link_id', $link->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') != 'production')
@@ -54,7 +55,8 @@ class CategoryNewsController extends Controller
                     'link' => $categoryLink,
                     'webData' => $categoryLink->webData,
                     'subcategories' => $categoryLink->children,
-                    'news' => $this->newsService->getNewsByAttribute('country_id', null)
+                    'news' => $this->newsService->getNewsByAttribute('country_id', null),
+                    'parentNews' => $this->newsService->getNewsByAttribute('link_id', $categoryLink->id)
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') != 'production')

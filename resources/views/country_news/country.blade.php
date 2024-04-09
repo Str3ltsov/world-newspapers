@@ -16,7 +16,7 @@
                     </h6>
                 </div>
                 <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
-                <div class="d-flex flex-wrap gap-2">
+                <div class="d-flex flex-wrap" style="gap: 5px">
                     @forelse($states as $state)
                         @if ($state->active && $state->children->isEmpty())
                             <a href="{{ url($state->link) }}" class="btn rounded-0 state-link">
@@ -38,8 +38,8 @@
                             </h6>
                         </div>
                         <hr class="p-0 m-0 pb-2 mb-1 border-1 opacity-25">
-                        <div class="d-flex flex-wrap gap-2">
-                            @forelse($state->children as $state)
+                        <div class="d-flex flex-wrap" style="gap: 5px">
+                            @forelse($state->children->sortBy('title') as $state)
                                 @if ($state->active)
                                     <a href="{{ url($state->link) }}" class="btn rounded-0 state-link">
                                         {{ $state->title }}
@@ -58,7 +58,7 @@
         <div class="d-flex flex-column gap-4 pb-2">
             @if ($country->flag)
                 <div class="d-flex gap-3">
-                    <img src="{{ asset('images/flags/countries/'.$country->flag) }}" 
+                    <img src="{{ asset('images/flags/'.$country->flag) }}" 
                         alt="{{ $country->flag_alt }}" class="img-fluid" 
                         style="width: 180px; height: 110px; border: 1px solid #E7E7E7;">
                     <p class="mb-0 pb-0 text-muted">{{ $country->flag_info ? $country->flag_info : null }}</p>
@@ -106,10 +106,11 @@
             background-color: #E4E4E4;
             color: #6F6F6F;
             transition: all 200ms ease;
+            padding: 3px 8px;
     
             &:hover, &:focus {
                 background-color: #cd5360;
-                color: #E4E4E4;
+                color: #F4F4F4;
             }
         }
 

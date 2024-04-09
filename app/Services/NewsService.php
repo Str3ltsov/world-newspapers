@@ -16,7 +16,9 @@ class NewsService
             $news = News::where([
                 $attributeName => $atrributeValue,
                 'active' => true
-            ])->get();
+            ])
+                ->orderBy('title')
+                ->get();
 
             if (!$news)
                 throw new Exception(__('News not found'));

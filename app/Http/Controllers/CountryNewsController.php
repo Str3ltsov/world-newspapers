@@ -54,7 +54,7 @@ class CountryNewsController extends Controller
                     'link' => $regionLink,
                     'webData' => $regionLink->webData,
                     'region' => $regionLink,
-                    'countries' => $regionLink->children,
+                    'countries' => $regionLink->children->sortBy('title'),
                     'news' => $this->newsService
                         ->getNewsByAttribute('country_id', $regionLink->id)
                 ]);
@@ -81,7 +81,7 @@ class CountryNewsController extends Controller
                     'webData' => $countryLink->webData,
                     'region' => $regionLink,
                     'country' => $countryLink,
-                    'states' => $countryLink->children,
+                    'states' => $countryLink->children->sortBy('title'),
                     'news' => $this->newsService
                         ->getNewsByAttribute('country_id', $countryLink->id)
                 ]);
@@ -110,7 +110,7 @@ class CountryNewsController extends Controller
                     'webData' => $stateLink->webData,
                     'region' => $regionLink,
                     'country' => $countryLink,
-                    'states' => $countryLink->children,
+                    'states' => $countryLink->children->sortBy('title'),
                     'currentState' => $stateLink,
                     'news' => $this->newsService
                         ->getNewsByAttribute('country_id', $stateLink->id)

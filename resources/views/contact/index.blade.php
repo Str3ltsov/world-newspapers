@@ -6,6 +6,7 @@
 @section('keywords', $webData->keywords)
 
 @section('content')
+    @include('success_message')
     <div class="bg-white px-3 py-4">
         @include('contact.send_message_form')
     </div>

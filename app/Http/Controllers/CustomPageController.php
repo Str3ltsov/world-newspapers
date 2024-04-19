@@ -35,10 +35,11 @@ class CustomPageController extends Controller
                     'page' => $this->nodeService->getNodeByAttribute('path', $path)
                 ]);
         } catch (Throwable $throwable) {
+            if ($throwable->getMessage() === 'Link not found')
+                return view('page_not_found')
+                    ->with('linkBreadcrumb', $this->linkService->createLinkBreadcrumb($this->currentLink));
+
             if (config('app.env') != 'production') {
-                if ($throwable->getMessage() === 'Link not found')
-                    return view('page_not_found')
-                        ->with('linkBreadcrumb', $this->linkService->createLinkBreadcrumb($this->currentLink));
                 throw $throwable;
             } else
                 return back()->with('error', $throwable->getMessage());

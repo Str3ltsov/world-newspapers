@@ -31,6 +31,8 @@
     <!-- Scripts -->
     @if (config('app.env') == 'production')
         <script src="{{ asset('build/assets/app-2TraeheH.js') }}"></script>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0480756189296182"
+            crossorigin="anonymous"></script>
     @else
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @endif

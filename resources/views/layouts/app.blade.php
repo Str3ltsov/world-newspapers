@@ -9,6 +9,9 @@
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (config('app.env') == 'production')
+        <meta name="google-site-verification" content="wFO90JaIl81Ih8190PmKMvXh_QgKPpH6f5WfAXMi9EY" />
+    @endif
     <!-- Title -->
     <title>
         @hasSection('title')

@@ -36,7 +36,8 @@ Route::get('/news/{category}', [CategoryNewsController::class, 'newsByCategory']
 Route::get('/countries', [CountryNewsController::class, 'index'])->name('regions');
 Route::get('/countries/{region}', [CountryNewsController::class, 'newsByRegion'])->name('newsByRegion');
 Route::get('/countries/{region}/{country}', [CountryNewsController::class, 'newsByCountry'])->name('newsByCountry');
-Route::get('/countries/{region}/{country}/{title}', [CountryNewsController::class, 'newsByState'])->name('newsByState');
+Route::get('/countries/{region}/{country}/{state}', [CountryNewsController::class, 'newsByState'])->name('newsByState');
+Route::get('/countries/{region}/{country}/{innerCountry}/{state}', [CountryNewsController::class, 'newsByInnerCountryState'])->name('newsByInnerCountryState');
 // Blogs
 Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
 Route::get('/blogs/{title}', [BlogController::class, 'show'])->name('blog');

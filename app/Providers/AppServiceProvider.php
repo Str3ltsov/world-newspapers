@@ -30,7 +30,10 @@ class AppServiceProvider extends ServiceProvider
                 ->with([
                     'headerLinks' => Menu::find(Menu::HEADER)->links->sortBy(['left', 'right']),
                     'mainMenuLinks' => Menu::find(Menu::MAIN_MENU)->links->sortBy(['left', 'right']),
-                    'magazineLinks' => Menu::find(Menu::MAGAZINE)->links->where('parent_id', null),
+                    'magazineLinks' => Menu::find(Menu::MAGAZINE)
+                        ->links
+                        ->where('parent_id', null)
+                        ->sortBy(['left', 'right']),
                     'newsLinks' => Menu::find(Menu::NEWS)->links->where('parent_id', null)
                 ]);
         });

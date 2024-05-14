@@ -30,14 +30,12 @@
     <div class="bg-white px-3 py-4">
         <div class="d-flex flex-column gap-3">
             @forelse ($news as $newsRecord)
-                @if ($loop->first)
-                    <hr class="p-0 m-0 border-1 opacity-25">
-                @endif
                 @if ($newsRecord->active)
                     <div class="d-flex gap-3">
                         @if ($newsRecord->logo)
-                            <img src="{{ asset('images/news_logos/'.$newsRecord->logo) }}" alt="{{ $newsRecord->logo_alt }}" 
-                                style="width: 120px; height: 50px; object-fit: contain; cursor: pointer cursor: pointer" 
+                            <img src="{{ asset('images/news_logos/' . $newsRecord->logo) }}"
+                                alt="{{ $newsRecord->logo_alt }}"
+                                style="width: 120px; height: 50px; object-fit: contain; cursor: pointer cursor: pointer"
                                 onclick="redirectAway('{{ $newsRecord->url }}')">
                         @endif
                         <div class="d-flex flex-column">
@@ -64,15 +62,17 @@
         </div>
     @endif
 
-    <style>  
-        .region-link, region-body a {
+    <style>
+        .region-link,
+        region-body a {
             color: #438496;
             transition: color 200ms ease;
 
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: #336674;
             }
-        }  
+        }
 
         .region-body p {
             color: #797979;
@@ -83,8 +83,9 @@
             color: #6F6F6F;
             transition: all 200ms ease;
             padding: 3px 8px;
-    
-            &:hover, &:focus {
+
+            &:hover,
+            &:focus {
                 background-color: #cd5360;
                 color: #F4F4F4;
             }

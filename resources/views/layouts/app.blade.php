@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <!-- Metas -->
     <meta charset="utf-8">
@@ -10,10 +11,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Title -->
     <title>
-        @hasSection('title') 
-            @yield('title') 
-        @else 
-            {{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }} 
+        @hasSection('title')
+            @yield('title')
+        @else
+            {{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }}
         @endif
     </title>
     <!-- Favicon -->
@@ -31,8 +32,16 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @endif
     <script src="{{ asset('js/helpers.js') }}"></script>
+    <script>
+        const printSessionErrorMessage = () => {
+            const errorMessage = "{{ session('error') }}"
+            errorMessage && console.error(errorMessage)
+        }
+        printSessionErrorMessage()
+    </script>
     @stack('scripts')
 </head>
+
 <body>
     <div id="app" style="width: 100%; min-height: 100vh; display: flex; flex-direction: column;">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -101,4 +110,5 @@
         @include('layouts.components.footer')
     </div>
 </body>
+
 </html>

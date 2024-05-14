@@ -10,8 +10,8 @@
         <div class="bg-white p-3">
             <div class="d-flex flex-column pb-2">
                 <div class="pb-2">
-                    <h6 class="fw-bold text-uppercase text-decoration-none region-link" 
-                        style="color: #cd5360;" href="{{ url($country->link) }}">
+                    <h6 class="fw-bold text-uppercase text-decoration-none region-link" style="color: #cd5360;"
+                        href="{{ url($country->link) }}">
                         {{ $country->title }}
                     </h6>
                 </div>
@@ -28,12 +28,12 @@
                     @endforelse
                 </div>
             </div>
-            @foreach($states as $state)
+            @foreach ($states as $state)
                 @if ($state->active && !$state->children->isEmpty())
                     <div class="d-flex flex-column py-2">
                         <div class="pb-2">
-                            <h6 class="fw-bold text-uppercase text-decoration-none region-link" 
-                                style="color: #cd5360;" href="{{ url($state->link) }}">
+                            <h6 class="fw-bold text-uppercase text-decoration-none region-link" style="color: #cd5360;"
+                                href="{{ url($state->link) }}">
                                 {{ $state->title }}
                             </h6>
                         </div>
@@ -58,26 +58,27 @@
         <div class="d-flex flex-column gap-4 pb-2">
             @if ($country->flag)
                 <div class="d-flex gap-3">
-                    <img src="{{ asset('images/flags/'.$country->flag) }}" 
-                        alt="{{ $country->flag_alt }}" class="img-fluid" 
-                        style="width: 180px; height: 110px; border: 1px solid #E7E7E7;">
+                    <img src="{{ asset('images/flags/' . $country->flag) }}" alt="{{ $country->flag_alt }}"
+                        class="img-fluid" style="width: 180px; height: 110px; border: 1px solid #E7E7E7;">
                     <p class="mb-0 pb-0 text-muted">{{ $country->flag_info ? $country->flag_info : null }}</p>
                 </div>
             @endif
             <div class="d-flex flex-column gap-3">
                 @forelse ($news as $newsRecord)
-                    @if ($loop->first)
+                    @if ($country->flag && $loop->first)
                         <hr class="p-0 m-0 border-1 opacity-25">
                     @endif
                     @if ($newsRecord->active)
                         <div class="d-flex gap-3">
                             @if ($newsRecord->logo)
-                            <img src="{{ asset('images/news_logos/'.$newsRecord->logo) }}" alt="{{ $newsRecord->logo_alt }}" 
-                                style="width: 120px; height: 50px; object-fit: contain; cursor: pointer" 
-                                onclick="redirectAway('{{ $newsRecord->url }}')">
+                                <img src="{{ asset('images/news_logos/' . $newsRecord->logo) }}"
+                                    alt="{{ $newsRecord->logo_alt }}"
+                                    style="width: 120px; height: 50px; object-fit: contain; cursor: pointer"
+                                    onclick="redirectAway('{{ $newsRecord->url }}')">
                             @endif
                             <div class="d-flex flex-column">
-                                <a href="{{ $newsRecord->url }}" target="_blank" class="magazine-link text-decoration-none">
+                                <a href="{{ $newsRecord->url }}" target="_blank"
+                                    class="magazine-link text-decoration-none">
                                     {{ $newsRecord->title }}
                                 </a>
                                 <p class="mb-0 pb-0 text-muted">
@@ -101,14 +102,15 @@
         </div>
     @endif
 
-    <style>  
+    <style>
         .state-link {
             background-color: #E4E4E4;
             color: #6F6F6F;
             transition: all 200ms ease;
             padding: 3px 8px;
-    
-            &:hover, &:focus {
+
+            &:hover,
+            &:focus {
                 background-color: #cd5360;
                 color: #F4F4F4;
             }
@@ -118,12 +120,14 @@
             color: #797979;
         }
 
-        .news-link, .country-body a {
+        .news-link,
+        .country-body a {
             text-decoration: none;
             color: #438496;
             transition: color 200ms ease;
 
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: #336674;
             }
         }

@@ -23,28 +23,38 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
-// Magazines
-Route::get('/magazines', [MagazineController::class, 'index'])->name('magazines');
-Route::get('/magazines/{category}', [MagazineController::class, 'magazinesByCategory'])->name('magazinesByCategory');
-Route::get('/magazines/{category}/{subcategory}', [MagazineController::class, 'magazinesBySubcategory'])->name('magazinesBySubcategory');
-// News by categories
-Route::get('/news', [CategoryNewsController::class, 'index'])->name('news');
-Route::get('/news/{category}', [CategoryNewsController::class, 'newsByCategory'])->name('newsByCategory');
-// News by countries
-Route::get('/countries', [CountryNewsController::class, 'index'])->name('regions');
-Route::get('/countries/{region}', [CountryNewsController::class, 'newsByRegion'])->name('newsByRegion');
-Route::get('/countries/{region}/{country}', [CountryNewsController::class, 'newsByCountry'])->name('newsByCountry');
-Route::get('/countries/{region}/{country}/{state}', [CountryNewsController::class, 'newsByState'])->name('newsByState');
-Route::get('/countries/{region}/{country}/{innerCountry}/{state}', [CountryNewsController::class, 'newsByInnerCountryState'])->name('newsByInnerCountryState');
-// Blogs
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs');
-Route::get('/blogs/{title}', [BlogController::class, 'show'])->name('blog');
-// Contact
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'sendMessage'])->name('sendMessage');
-// Sitemap
+Route::get('/home', fn () => redirect()->route('home'));
+
+Route::prefix('magazines')->group(function () {
+    Route::get('/', [MagazineController::class, 'index'])->name('magazines');
+    Route::get('/{category}', [MagazineController::class, 'magazinesByCategory'])->name('magazinesByCategory');
+    Route::get('/{category}/{subcategory}', [MagazineController::class, 'magazinesBySubcategory'])->name('magazinesBySubcategory');
+});
+
+Route::prefix('news')->group(function () {
+    Route::get('/', [CategoryNewsController::class, 'index'])->name('news');
+    Route::get('/{category}', [CategoryNewsController::class, 'newsByCategory'])->name('newsByCategory');
+});
+
+Route::prefix('countries')->group(function () {
+    Route::get('/', [CountryNewsController::class, 'index'])->name('regions');
+    Route::get('/{region}', [CountryNewsController::class, 'newsByRegion'])->name('newsByRegion');
+    Route::get('/{region}/{country}', [CountryNewsController::class, 'newsByCountry'])->name('newsByCountry');
+    Route::get('/{region}/{country}/{state}', [CountryNewsController::class, 'newsByState'])->name('newsByState');
+    Route::get('/{region}/{country}/{innerCountry}/{state}', [CountryNewsController::class, 'newsByInnerCountryState'])->name('newsByInnerCountryState');
+});
+
+Route::prefix('blogs')->group(function () {
+    Route::get('/', [BlogController::class, 'index'])->name('blogs');
+    Route::get('/{title}', [BlogController::class, 'show'])->name('blog');
+});
+
+Route::prefix('contact')->group(function () {
+    Route::get('/', [ContactController::class, 'index'])->name('contact');
+    Route::post('/', [ContactController::class, 'sendMessage'])->name('sendMessage');
+});
+
 Route::get('/sitemap-index', [SitemapController::class, 'index'])->name('sitemap');
 
 // Custom pages (about us, privacy policy)

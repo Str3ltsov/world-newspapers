@@ -45,4 +45,5 @@ class CustomPageController extends Controller
                 return back()->with('error', $throwable->getMessage());
         }
     }
+		
 }

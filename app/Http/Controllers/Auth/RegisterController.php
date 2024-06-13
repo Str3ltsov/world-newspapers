@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Services\LinkService;
 
 class RegisterController extends Controller
 {
@@ -28,16 +29,18 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+		private LinkService $linkService;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(LinkService $linkService)
     {
-        $this->middleware('guest');
+				$this->linkService = $linkService;
+				$this->middleware('guest');
     }
 
     /**
@@ -50,9 +53,19 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:newspapers_users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+						'username' => ['required', 'string', 'max:255', 'unique:newspapers_users']
         ]);
+    }
+
+		public function showRegisterForm()
+    {
+				$linkBreadcrumb = [
+					['path' => '/', 'title' => 'Home'],
+					['path' => '/register', 'title' => 'Register']
+				];
+        return view('auth.register', compact('linkBreadcrumb'));
     }
 
     /**
@@ -67,6 +80,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+						'username' => $data['username'],
         ]);
     }
 }

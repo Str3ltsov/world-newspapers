@@ -7,24 +7,26 @@
                         <i class="fa-solid fa-house fs-6"></i>
                     </a>
                 </li>
-                @forelse ($linkBreadcrumb as $link)
-                    @if (!$loop->last)
-                        <li class="breadcrumb-li">
-                            <a href="{{ url($link['path']) }}" class="breadcrumb-link text-decoration-none">
-                                {{ $link['title'] }}
-                            </a>
-                        </li>
-                    @else
-                        @if (!$link['title'] == '')
-                            <li class="breadcrumb-li" aria-current="page-breadcrumb" style="color: #cd5360;">
-                                {{ $link['title'] }}
+                @if(isset($linkBreadcrumb))
+                    @forelse ($linkBreadcrumb as $link)
+                        @if (!$loop->last)
+                            <li class="breadcrumb-li">
+                                <a href="{{ url($link['path']) }}" class="breadcrumb-link text-decoration-none">
+                                    {{ $link['title'] }}
+                                </a>
                             </li>
+                        @else
+                            @if (!$link['title'] == '')
+                                <li class="breadcrumb-li" aria-current="page-breadcrumb" style="color: #cd5360;">
+                                    {{ $link['title'] }}
+                                </li>
+                            @endif
                         @endif
-                    @endif
-                @empty
-                @endforelse
+                    @empty
+                    @endforelse
+                @endif
             </ol>
-          </nav>
+        </nav>
     </div>
     @hasSection('heading')
         <div class="text-center py-2" style="background-color: #438496;">
@@ -35,20 +37,3 @@
     @endif
     @yield('content')
 </main>
-
-<style>
-    .breadcrumb-li {
-        background: url({{ asset('images/arrow.png') }}) no-repeat right center;
-        float: left;
-        padding: 18px 35px 17px 20px;
-    }
-
-    .breadcrumb-link {
-        color: #438496;
-        transition: color 200ms ease;
-
-        &:hover, &:focus {
-            color: #336674;
-        }
-    }
-</style>

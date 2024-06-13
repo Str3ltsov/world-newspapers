@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Throwable;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,13 +26,16 @@ class HomeController extends Controller
         try {
             $link = $this->linkService->getLinkByAttribute('link', $this->currentLink);
 
+						$user = Auth::user();
+
             return view('home.index')
                 ->with([
                     'linkBreadcrumb' => $this->linkService->createLinkBreadcrumb($this->currentLink),
                     'link' => $link,
                     'webData' => $link->webData,
                     'regions' => $this->countryService
-                        ->getCountriesByAttribute('parent_id', null)
+                        ->getCountriesByAttribute('parent_id', null),
+										'user' => $user
                 ]);
         } catch (Throwable $throwable) {
             if (config('app.env') != 'production')

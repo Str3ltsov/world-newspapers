@@ -42,6 +42,17 @@
             </div>
             <div class="col-12 d-flex mt-1">
                 <div class="col-sm-2"></div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                        {{ old('remember') ? 'checked' : '' }}>
+
+                    <label class="form-check-label" for="remember">
+                        {{ __('Remember Me') }}
+                    </label>
+                </div>
+            </div>
+            <div class="col-12 d-flex mt-1">
+                <div class="col-sm-2"></div>
                 <button type="submit" class="btn send-button text-white">
                     {{ __('Login') }}
                 </button>

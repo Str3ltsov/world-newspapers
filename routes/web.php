@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryNewsController;
 use App\Http\Controllers\ContactController;
@@ -22,6 +23,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes(['register' => 'false']);
+
+Route::get('logout', function () {
+    Auth::logout();
+    return back()->with('success', __('Successfully logged out'));
+})->name('logout');
+
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('adminDashboard');
+});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', fn () => redirect()->route('home'));

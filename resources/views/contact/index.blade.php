@@ -6,7 +6,7 @@
 @section('keywords', $webData->keywords)
 
 @section('content')
-    @include('success_message')
+    @include('messages.success_message')
     <div class="bg-white px-3 py-4">
         @include('contact.send_message_form')
     </div>
@@ -15,7 +15,8 @@
         .send-button {
             background-color: #438496;
 
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 background-color: #336674;
             }
         }

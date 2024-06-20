@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => 'false']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', fn () => redirect()->route('home'));

@@ -62,10 +62,6 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            if ($this->isAdmin()) {
-                return redirect('/admin/dashboard');
-            }
-
             return redirect()->intended('/');
         }
 

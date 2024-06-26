@@ -8,13 +8,20 @@
     <div class="container">
         <div class="d-flex align-items-center justify-content-between py-3">
             <ul class="nav gap-4">
-                @foreach($headerLinks as $headerLink)
+                @foreach ($headerLinks as $headerLink)
                     <li class="nav-item">
                         <a href="{{ url($headerLink->link) }}" class="nav-link footer-link p-0">
                             {{ $headerLink->title }}
                         </a>
                     </li>
                 @endforeach
+                @auth
+                    <li class="nav-item">
+                        <a href="{{ route('adminDashboard') }}" class="nav-link footer-link p-0">
+                            {{ __('Admin panel') }}
+                        </a>
+                    </li>
+                @endauth
             </ul>
             <button type="button" class="btn rounded-0 text-white top-button fs-5" onclick="backToTop()">
                 <i class="fa-solid fa-angle-up"></i>
@@ -27,7 +34,8 @@
     .footer-link {
         color: #fff;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: #cd5360;
         }
     }
@@ -35,7 +43,8 @@
     .top-button {
         background-color: #cd5360;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             background-color: #ac454f;
         }
     }

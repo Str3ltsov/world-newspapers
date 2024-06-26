@@ -1,10 +1,15 @@
 <nav class="navbar navbar-light bg-light d-none d-sm-block">
     <div class="container d-flex justify-content-start">
-        @foreach($headerLinks as $headerLink)
+        @foreach ($headerLinks as $headerLink)
             <a class="navbar-brand fw-normal fs-6 py-0 header-link" href="{{ url($headerLink->link) }}">
                 {{ $headerLink->title }}
             </a>
         @endforeach
+        @auth
+            <a class="navbar-brand fw-normal fs-6 py-0 header-link" href="{{ route('adminDashboard') }}">
+                {{ __('Admin panel') }}
+            </a>
+        @endauth
     </div>
 </nav>
 
@@ -13,7 +18,8 @@
         transition: color 200ms ease;
         color: #959595;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: #cd5360;
         }
     }

@@ -3,5 +3,5 @@
 @section('title', __('Dashboard'))
 
 @section('content')
-    @include('messages.success_message')
+    @include('session_messages')
 @endsection

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryNewsController;
@@ -31,6 +32,7 @@ Route::get('logout', function () {
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('adminDashboard');
+    Route::resource('magazines', Admin\MagazineController::class);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

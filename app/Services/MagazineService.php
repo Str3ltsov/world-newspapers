@@ -8,6 +8,16 @@ use Exception;
 
 class MagazineService
 {
+    public function getMagazines(): Collection
+    {
+        return Magazine::all();
+    }
+
+    public function getMagazineById(int $id): Magazine
+    {
+        return Magazine::findOrFail($id);
+    }
+
     public function getMagazinesByAttribute(string $attributeName, mixed $atrributeValue): ?Collection
     {
         $magazineModel = new Magazine;

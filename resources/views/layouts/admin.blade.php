@@ -4,10 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="title" content="@yield('title')">
+    <meta name="title" content="@yield('title') | Admin Panel | World-Newspapers.com">
     <meta name="description" content="Administrator Panel for World-Newspapers.com">
     <meta name="keywords" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>
+        @hasSection('title')
+            @yield('title') | Admin Panel | World-Newspapers.com
+        @else
+            {{ config('app.name', 'World Newspapers and Magazines on your Finger Tip | World-Newspapers.com') }}
+        @endif
+    </title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
@@ -21,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
 
     <style type="text/css">
         /* Chart.js */
@@ -102,7 +113,7 @@
 
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
-            <a href="{{ route('adminDashboard') }}" class="brand-link">
+            <a href="{{ url('/') }}" class="brand-link">
                 <span class="brand-text font-weight-light px-3">World-Newspapers.com</span>
             </a>
 
@@ -201,6 +212,16 @@
                                             <i class="nav-icon fas fa-tachometer-alt"></i>
                                             <p>
                                                 {{ __('Dashboard') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('magazines.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(route('magazines.index'), request()->path())) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-book"></i>
+                                            <p>
+                                                {{ __('Magazines') }}
                                             </p>
                                         </a>
                                     </li>
@@ -480,8 +501,12 @@
     <script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
     {{-- <script src="{{ asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script> --}}
     <script src="{{ asset('adminlte/dist/js/adminlte.js?v=3.2.0') }}"></script>
-    <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
+    {{-- <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script> --}}
     {{-- <script src="{{ asset('adminlte/dist/js/pages/dashboard.js') }}"></script> --}}
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#dataTable');
+    </script>
     @stack('adminScripts')
 </body>
 

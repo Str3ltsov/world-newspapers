@@ -6,7 +6,7 @@
 @section('keywords', null)
 
 @section('content')
-    @include('messages.error_message')
+    @include('session_messages')
     <div class="bg-white px-3 py-4">
         <form class="row gap-3" method="POST" action="{{ route('login') }}">
             @csrf

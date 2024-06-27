@@ -8,6 +8,11 @@ use Exception;
 
 class LinkService
 {
+    public function getLinkById(int $id): Link
+    {
+        return Link::findOrFail($id);
+    }
+
     public function getLinkByAttribute(string $attributeName, mixed $atrributeValue): ?Link
     {
         $linkModel = new Link;
@@ -22,6 +27,13 @@ class LinkService
         }
 
         return null;
+    }
+
+    public function getLinksByLikeLink(string $linkValue): ?Collection
+    {
+        return Link::where('parent_id', '!=', 'null')
+            ->where('link', 'like', '%' . $linkValue . '%')
+            ->get();
     }
 
     public function getCategoryLinksByMenuId(string $menuId): Collection

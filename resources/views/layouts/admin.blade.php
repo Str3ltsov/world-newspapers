@@ -79,6 +79,10 @@
             left: 0;
             top: 0
         }
+
+        .ck-editor__editable_inline {
+            min-height: 200px
+        }
     </style>
     @stack('adminStyles')
 </head>
@@ -216,9 +220,19 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('links.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'links')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-link"></i>
+                                            <p>
+                                                {{ __('Links') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('magazines.index') }}"
                                             class="nav-link
-                                            @if (str_contains(route('magazines.index'), request()->path())) active @endif">
+                                            @if (str_contains(request()->path(), 'magazines')) active @endif">
                                             <i class="nav-icon fas fa-solid fa-book"></i>
                                             <p>
                                                 {{ __('Magazines') }}
@@ -505,8 +519,10 @@
     {{-- <script src="{{ asset('adminlte/dist/js/pages/dashboard.js') }}"></script> --}}
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
     <script>
-        let table = new DataTable('#dataTable');
+        new DataTable('#dataTable');
+        new DataTable('table.data-table');
     </script>
+    <script src="{{ asset('ckeditor5/build/ckeditor.js') }}"></script>
     @stack('adminScripts')
 </body>
 

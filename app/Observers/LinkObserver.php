@@ -3,29 +3,19 @@
 namespace App\Observers;
 
 use App\Models\Link;
-use App\Models\WebData;
+use App\Services\MenuService;
 
 class LinkObserver
 {
-    /**
-     * Handle the Link "creating" event.
-     */
-    public function creating(Link $link): void
-    {
-        WebData::create([
-            'title' => $link->web_data['title'],
-            'heading' => $link->web_data['heading'],
-            'description' => $link->web_data['description'],
-            'keywords' => $link->web_data['keywords']
-        ]);
-    }
-
     /**
      * Handle the Link "created" event.
      */
     public function created(Link $link): void
     {
-        //
+        $menuService = new MenuService;
+
+        $menu = $menuService->getMagazineById($link->menu_id);
+        $menuService->addLinkCountToMenu($menu);
     }
 
     /**
@@ -41,7 +31,10 @@ class LinkObserver
      */
     public function deleted(Link $link): void
     {
-        //
+        $menuService = new MenuService;
+
+        $menu = $menuService->getMagazineById($link->menu_id);
+        $menuService->subtractLinkCountToMenu($menu);
     }
 
     /**

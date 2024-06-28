@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    <link href="{{ asset('tagify/dist/tagify.css') }}" rel="stylesheet" type="text/css" />
 
     <style type="text/css">
         /* Chart.js */
@@ -226,6 +227,16 @@
                                             <i class="nav-icon fas fa-solid fa-link"></i>
                                             <p>
                                                 {{ __('Links') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('web_data.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'web_data')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-database"></i>
+                                            <p>
+                                                {{ __('Web Data') }}
                                             </p>
                                         </a>
                                     </li>
@@ -523,6 +534,8 @@
         new DataTable('table.data-table');
     </script>
     <script src="{{ asset('ckeditor5/build/ckeditor.js') }}"></script>
+    <script src="{{ asset('tagify/dist/tagify.js') }}"></script>
+    <script src="{{ asset('tagify/dist/tagify.polyfills.min.js') }}"></script>
     @stack('adminScripts')
 </body>
 

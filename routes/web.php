@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('adminDashboard');
     Route::resource('magazines', Admin\MagazineController::class);
     Route::resource('links', Admin\LinkController::class);
+    Route::resource('web_data', Admin\WebDataController::class);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

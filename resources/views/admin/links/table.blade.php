@@ -46,7 +46,7 @@
             </tr>
         @empty
             <tr colspan="6">
-                {{ __('No magazine links found') }}
+                {{ __('No links found') }}
             </tr>
         @endforelse
     </tbody>

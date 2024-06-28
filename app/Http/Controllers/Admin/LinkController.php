@@ -142,6 +142,19 @@ class LinkController extends Controller
     {
         try {
             $validatedForm = $request->validated();
+            $parentId = $validatedForm['parent_id'] ?? null;
+
+            $lastWordFromLink = $this->linkService->getLastWordFromLink($validatedForm['link']);
+
+            if (isset($parentId)) {
+                $parentLink = $this->linkService->getLinkById($parentId);
+                $validatedForm['link'] = $parentLink->link . '/' . $lastWordFromLink;
+            }
+
+            if (!str_contains($validatedForm['link'], 'magazines/') && $validatedForm['menu_id'] == Menu::MAGAZINE)
+                $validatedForm['link'] = '/magazines/' . $lastWordFromLink;
+            if (!str_contains($validatedForm['link'], 'news/') && $validatedForm['menu_id'] == Menu::NEWS)
+                $validatedForm['link'] = '/news/' . $lastWordFromLink;
 
             $link = $this->linkService->getLinkById($id);
             $link->update($validatedForm);

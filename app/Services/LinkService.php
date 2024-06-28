@@ -49,6 +49,13 @@ class LinkService
         return $categoryLinks;
     }
 
+    public function getLastWordFromLink(string $link): string
+    {
+        $splitLink = explode('/', $link);
+
+        return $splitLink[count($splitLink) - 1];
+    }
+
     public function createLinkBreadcrumb(string $link): array
     {
         $splitLink = $this->createSplitLink($link);

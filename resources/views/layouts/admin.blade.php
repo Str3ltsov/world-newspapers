@@ -221,6 +221,16 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('web_data.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'web_data')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-database"></i>
+                                            <p>
+                                                {{ __('Web Data') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('links.index') }}"
                                             class="nav-link
                                             @if (str_contains(request()->path(), 'links')) active @endif">
@@ -231,12 +241,12 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ route('web_data.index') }}"
+                                        <a href="{{ route('countries.index') }}"
                                             class="nav-link
-                                            @if (str_contains(request()->path(), 'web_data')) active @endif">
-                                            <i class="nav-icon fas fa-solid fa-database"></i>
+                                            @if (str_contains(request()->path(), 'countries')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-globe"></i>
                                             <p>
-                                                {{ __('Web Data') }}
+                                                {{ __('Countries') }}
                                             </p>
                                         </a>
                                     </li>

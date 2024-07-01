@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('web_data', Admin\WebDataController::class);
     Route::resource('magazines', Admin\MagazineController::class);
     Route::resource('countries', Admin\CountryController::class);
+    Route::resource('news', Admin\NewsController::class);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

@@ -251,6 +251,16 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('news.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'news')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-newspaper"></i>
+                                            <p>
+                                                {{ __('News') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('magazines.index') }}"
                                             class="nav-link
                                             @if (str_contains(request()->path(), 'magazines')) active @endif">

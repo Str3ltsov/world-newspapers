@@ -210,6 +210,9 @@
                                             </li>
                                         </ul>
                                     </li> --}}
+                                    <li class="nav-header">
+                                        {{ __('Management') }}
+                                    </li>
                                     <li class="nav-item">
                                         <a href="{{ route('adminDashboard') }}"
                                             class="nav-link
@@ -279,6 +282,19 @@
                                                 {{ __('Blogs') }}
                                             </p>
                                         </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('custom_pages.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'custom_pages')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-scroll"></i>
+                                            <p>
+                                                {{ __('Custom Pages') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-header">
+                                        {{ __('Miscellaneous ') }}
                                     </li>
                                     <li class="nav-item">
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"

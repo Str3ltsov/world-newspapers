@@ -6,6 +6,17 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title d-flex justify-content-between align-items-center w-100">
+                        {{ __('Magazine - ' . $magazine->id) }}
+                        <div class="d-flex align-items-center">
+                            <a href="{{ route('magazines.edit', $magazine->id) }}" class="btn btn-primary mr-2">
+                                {{ __('Edit') }}
+                            </a>
+                            @include('admin.magazines.forms.destroy_form')
+                        </div>
+                    </h3>
+                </div>
                 <div class="card-body">
                     <div class="row" style="row-gap: 8px">
                         <div class="col-xl-3 col-lg-4 col-md-6 col-12">
@@ -48,12 +59,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer d-flex align-items-center">
-                    <a href="{{ route('magazines.edit', $magazine->id) }}" class="btn btn-primary mr-2">
-                        {{ __('Edit') }}
-                    </a>
-                    @include('admin.magazines.forms.destroy_form')
-                    <span class="mx-2">|</span>
+                <div class="card-footer">
                     <a href="{{ route('magazines.index') }}" class="btn btn-secondary">
                         {{ __('Back to magazines') }}
                     </a>

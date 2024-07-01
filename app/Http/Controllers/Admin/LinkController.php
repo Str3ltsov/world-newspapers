@@ -103,10 +103,18 @@ class LinkController extends Controller
         }
     }
 
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
+        $query = $request->query();
+        $isAParent = $query['is_a_parent'] ?? null;
+        $linkType = $query['link_type'] ?? null;
+
         return view('admin.links.show')
-            ->with('link', $this->linkService->getLinkById($id));
+            ->with([
+                'link' => $this->linkService->getLinkById($id),
+                'isAParent' => $isAParent,
+                'linkType' => $linkType,
+            ]);
     }
 
     public function edit(int $id, Request $request)

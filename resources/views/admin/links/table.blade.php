@@ -31,7 +31,8 @@
                 </td>
                 <td>
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('links.show', $link->id) }}" class="btn btn-primary mr-2">
+                        <a href="{{ route('links.show', ['link' => $link->id, 'is_a_parent' => $isAParent, 'link_type' => $link->menu_id]) }}"
+                            class="btn btn-primary mr-2">
                             {{ __('View') }}
                         </a>
                         <a href="{{ route('links.edit', ['link' => $link->id, 'is_a_parent' => $isAParent, 'link_type' => $link->menu_id]) }}"

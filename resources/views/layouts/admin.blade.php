@@ -224,6 +224,16 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('messages.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'messages')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-envelope"></i>
+                                            <p>
+                                                {{ __('Messages') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <a href="{{ route('web_data.index') }}"
                                             class="nav-link
                                             @if (str_contains(request()->path(), 'web_data')) active @endif">

@@ -13,7 +13,8 @@
                     <h3 class="card-title d-flex justify-content-between align-items-center w-100">
                         {{ __('Link - ' . $link->title) }}
                         <div class="d-flex align-items-center">
-                            <a href="{{ route('links.edit', $link->id) }}" class="btn btn-primary mr-2">
+                            <a href="{{ route('links.edit', ['link' => $link->id, 'is_a_parent' => $isAParent, 'link_type' => $linkType]) }}"
+                                class="btn btn-primary mr-2">
                                 {{ __('Edit') }}
                             </a>
                             @include('admin.links.forms.destroy_form')

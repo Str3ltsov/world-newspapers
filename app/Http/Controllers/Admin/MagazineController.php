@@ -28,12 +28,6 @@ class MagazineController extends Controller
             ->with('magazines', $this->magazineService->getMagazines());
     }
 
-    public function show(int $id)
-    {
-        return view('admin.magazines.show')
-            ->with('magazine', $this->magazineService->getMagazineById($id));
-    }
-
     public function create()
     {
         return view('admin.magazines.create')
@@ -63,6 +57,12 @@ class MagazineController extends Controller
             else
                 throw $throwable;
         }
+    }
+
+    public function show(int $id)
+    {
+        return view('admin.magazines.show')
+            ->with('magazine', $this->magazineService->getMagazineById($id));
     }
 
     public function edit(int $id)

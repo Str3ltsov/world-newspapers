@@ -8,6 +8,11 @@ use Exception;
 
 class NodeService
 {
+    public function getNodeById(int $id): Node
+    {
+        return Node::findOrFail($id);
+    }
+
     public function getNodeByAttribute(string $attributeName, mixed $atrributeValue): ?Node
     {
         $nodeModel = new Node;

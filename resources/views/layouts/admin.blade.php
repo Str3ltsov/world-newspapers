@@ -271,6 +271,16 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
+                                        <a href="{{ route('blogs.index') }}"
+                                            class="nav-link
+                                            @if (str_contains(request()->path(), 'blogs')) active @endif">
+                                            <i class="nav-icon fas fa-solid fa-pen"></i>
+                                            <p>
+                                                {{ __('Blogs') }}
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="nav-link">
                                             @csrf

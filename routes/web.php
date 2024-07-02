@@ -32,10 +32,18 @@ Route::get('logout', function () {
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('adminDashboard');
+
     Route::resource('messages', Admin\MessageController::class)->only(['index', 'show', 'destroy']);
     Route::patch('messages/{message}/mark_as_read', [Admin\MessageController::class, 'markAsRead'])->name('markAsRead');
+
     Route::resource('web_data', Admin\WebDataController::class);
+
     Route::resource('links', Admin\LinkController::class);
+    Route::prefix('links')->group(function () {
+        Route::patch('/{link}/move_link_order_up', [Admin\LinkController::class, 'moveLinkOrderUp'])->name('moveLinkOrderUp');
+        Route::patch('/{link}/move_link_order_down', [Admin\LinkController::class, 'moveLinkOrderDown'])->name('moveLinkOrderDown');
+    });
+
     Route::resource('countries', Admin\CountryController::class);
     Route::resource('news', Admin\NewsController::class);
     Route::resource('magazines', Admin\MagazineController::class);

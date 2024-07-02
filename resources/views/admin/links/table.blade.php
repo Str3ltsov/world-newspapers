@@ -42,6 +42,12 @@
                         @if ($deleteEnabled)
                             @include('admin.links.forms.destroy_form')
                         @endif
+                        @if (json_decode($link->params, true)['canMoveOrderUp'])
+                            @include('admin.links.forms.move_link_order_up_form')
+                        @endif
+                        @if (json_decode($link->params, true)['canMoveOrderDown'])
+                            @include('admin.links.forms.move_link_order_down_form')
+                        @endif
                     </div>
                 </td>
             </tr>

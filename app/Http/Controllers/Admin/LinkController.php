@@ -27,14 +27,28 @@ class LinkController extends Controller
 
     public function index()
     {
+        $magazineLinks = $this->linkService->getCategoryLinksByMenuId(Menu::MAGAZINE);
+        $newsLinks = $this->linkService->getCategoryLinksByMenuId(Menu::NEWS);
+        $mainMenuLinks = $this->linkService->getCategoryLinksByMenuId(Menu::MAIN_MENU);
+        $headerLinks = $this->linkService->getCategoryLinksByMenuId(Menu::HEADER);
+        $magazineSublinks = $this->linkService->getLinksByLikeLink('magazines');
+        $newsSublinks = $this->linkService->getLinksByLikeLink('news');
+
+        $this->linkService->addCanMoveUpAndDownToLinkParams($magazineLinks->sortByDesc('left'));
+        $this->linkService->addCanMoveUpAndDownToLinkParams($newsLinks->sortByDesc('left'));
+        $this->linkService->addCanMoveUpAndDownToLinkParams($mainMenuLinks->sortByDesc('left'));
+        $this->linkService->addCanMoveUpAndDownToLinkParams($headerLinks->sortByDesc('left'));
+        $this->linkService->addCanMoveUpAndDownToLinkParams($magazineSublinks->sortByDesc('left'));
+        $this->linkService->addCanMoveUpAndDownToLinkParams($newsSublinks->sortByDesc('left'));
+
         return view('admin.links.index')
             ->with([
-                'magazineLinks' => $this->linkService->getCategoryLinksByMenuId(Menu::MAGAZINE),
-                'newsLinks' => $this->linkService->getCategoryLinksByMenuId(Menu::NEWS),
-                'mainMenuLinks' => $this->linkService->getCategoryLinksByMenuId(Menu::MAIN_MENU),
-                'headerLinks' => $this->linkService->getCategoryLinksByMenuId(Menu::HEADER),
-                'magazineSublinks' => $this->linkService->getLinksByLikeLink('magazines'),
-                'newsSublinks' => $this->linkService->getLinksByLikeLink('news')
+                'magazineLinks' => $magazineLinks,
+                'newsLinks' => $newsLinks,
+                'mainMenuLinks' => $mainMenuLinks,
+                'headerLinks' => $headerLinks,
+                'magazineSublinks' => $magazineSublinks,
+                'newsSublinks' => $newsSublinks
             ]);
     }
 
@@ -187,6 +201,90 @@ class LinkController extends Controller
             return redirect()
                 ->route('links.index')
                 ->with('success', "Successfully deleted link - $link->title");
+        } catch (Throwable $throwable) {
+            if (config('app.env') == 'production')
+                return back()->with('error', $throwable->getMessage());
+            else
+                throw $throwable;
+        }
+    }
+
+    public function moveLinkOrderUp(int $id, Request $request)
+    {
+        try {
+            $query = $request->query();
+            $isAParent = $query['is_a_parent'] ?? null;
+            $linkType = $query['link_type'] ?? null;
+
+            if (isset($isAParent) && isset($linkType)) {
+                $links = [];
+
+                if ($linkType == LinkTypes::MAGAZINE_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::MAGAZINE);
+                if ($linkType == LinkTypes::NEWS_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::NEWS);
+                if ($linkType == LinkTypes::MAIN_MENU_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::MAIN_MENU);
+                if ($linkType == LinkTypes::HEADER_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::HEADER);
+                if ($linkType == LinkTypes::MAGAZINE_TYPE && !$isAParent)
+                    $links = $this->linkService->getLinksByLikeLink('magazines');
+                if ($linkType == LinkTypes::NEWS_TYPE && !$isAParent)
+                    $links = $this->linkService->getLinksByLikeLink('news');
+
+                $link = $this->linkService->getLinkById($id);
+
+                $this->linkService->updateLinkAboveOrderByDirection($links, $link->left, 'down');
+                $this->linkService->updateCurrentLinkOrderByDirection($link, 'up');
+
+                $this->linkService->addCanMoveUpAndDownToLinkParams($links->sortByDesc('left'));
+
+                return redirect()
+                    ->route('links.index')
+                    ->with('success', "Successfully moved - $link->title up");
+            }
+        } catch (Throwable $throwable) {
+            if (config('app.env') == 'production')
+                return back()->with('error', $throwable->getMessage());
+            else
+                throw $throwable;
+        }
+    }
+
+    public function moveLinkOrderDown(int $id, Request $request)
+    {
+        try {
+            $query = $request->query();
+            $isAParent = $query['is_a_parent'] ?? null;
+            $linkType = $query['link_type'] ?? null;
+
+            if (isset($isAParent) && isset($linkType)) {
+                $links = [];
+
+                if ($linkType == LinkTypes::MAGAZINE_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::MAGAZINE);
+                if ($linkType == LinkTypes::NEWS_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::NEWS);
+                if ($linkType == LinkTypes::MAIN_MENU_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::MAIN_MENU);
+                if ($linkType == LinkTypes::HEADER_TYPE)
+                    $links = $this->linkService->getCategoryLinksByMenuId(Menu::HEADER);
+                if ($linkType == LinkTypes::MAGAZINE_TYPE && !$isAParent)
+                    $links = $this->linkService->getLinksByLikeLink('magazines');
+                if ($linkType == LinkTypes::NEWS_TYPE && !$isAParent)
+                    $links = $this->linkService->getLinksByLikeLink('news');
+
+                $link = $this->linkService->getLinkById($id);
+
+                $this->linkService->updateLinkBelowOrderByDirection($links, $link->left, 'up');
+                $this->linkService->updateCurrentLinkOrderByDirection($link, 'down');
+
+                $this->linkService->addCanMoveUpAndDownToLinkParams($links->sortByDesc('left'));
+
+                return redirect()
+                    ->route('links.index')
+                    ->with('success', "Successfully moved - $link->title down");
+            }
         } catch (Throwable $throwable) {
             if (config('app.env') == 'production')
                 return back()->with('error', $throwable->getMessage());

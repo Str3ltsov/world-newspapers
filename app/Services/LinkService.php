@@ -8,6 +8,9 @@ use Exception;
 
 class LinkService
 {
+    private array $directions = ['up', 'down'];
+    private int $orderValue = 2;
+
     public function getLinkById(int $id): Link
     {
         return Link::findOrFail($id);
@@ -54,6 +57,84 @@ class LinkService
         $splitLink = explode('/', $link);
 
         return $splitLink[count($splitLink) - 1];
+    }
+
+    public function addCanMoveUpAndDownToLinkParams(Collection $links): void
+    {
+        $counter = 0;
+        $lastCountValue = count($links) - 1;
+
+        foreach ($links as $link) {
+            if ($counter == 0 && $lastCountValue == 0) {
+                $link->params = '{"canMoveOrderUp": false, "canMoveOrderDown": false}';
+                $link->save();
+                $counter += 1;
+                continue;
+            }
+            if ($counter == 0) {
+                $link->params = '{"canMoveOrderUp": true, "canMoveOrderDown": false}';
+                $link->save();
+                $counter += 1;
+                continue;
+            }
+            if ($counter == $lastCountValue) {
+                $link->params = '{"canMoveOrderUp": false, "canMoveOrderDown": true}';
+                $link->save();
+                $counter += 1;
+                continue;
+            }
+
+            $link->params = '{"canMoveOrderUp": true, "canMoveOrderDown": true}';
+            $link->save();
+            $counter += 1;
+            continue;
+        }
+    }
+
+    public function updateLinkAboveOrderByDirection(Collection $links, int $currentLinkOrder, string $direction): void
+    {
+        $linkAbove = $this->getLinkAboveCurrentLink($links, $currentLinkOrder);
+
+        if ($direction == $this->directions[0])
+            $linkAbove->left = $linkAbove->left - $this->orderValue;
+        if ($direction == $this->directions[1])
+            $linkAbove->left = $linkAbove->left + $this->orderValue;
+
+        $linkAbove->save();
+    }
+
+    public function updateCurrentLinkOrderByDirection(Link $currentLink, string $direction): void
+    {
+        if ($direction == $this->directions[0])
+            $currentLink->left = $currentLink->left - $this->orderValue;
+        if ($direction == $this->directions[1])
+            $currentLink->left = $currentLink->left + $this->orderValue;
+
+        $currentLink->save();
+    }
+
+    public function updateLinkBelowOrderByDirection(Collection $links, int $currentLinkOrder, string $direction): void
+    {
+        $linkBelow = $this->getLinkBelowCurrentLink($links, $currentLinkOrder);
+
+        if ($direction == $this->directions[0])
+            $linkBelow->left = $linkBelow->left - $this->orderValue;
+        if ($direction == $this->directions[1])
+            $linkBelow->left = $linkBelow->left + $this->orderValue;
+
+        $linkBelow->save();
+    }
+
+    private function getLinkAboveCurrentLink(Collection $links, int $currentLinkOrder): Link
+    {
+        return $links->where('left', '<', $currentLinkOrder)
+            ->sortByDesc('id')
+            ->first();
+    }
+
+    private function getLinkBelowCurrentLink(Collection $links, int $currentLinkOrder): Link
+    {
+        return $links->where('left', '>', $currentLinkOrder)->first();
     }
 
     public function createLinkBreadcrumb(string $link): array

@@ -10,7 +10,7 @@
                 <th>Flag Alt</th>
             @endif
             <th>Web Data ID</th>
-            <th>Order</th>
+            {{-- <th>Order</th> --}}
             <th>Active</th>
             <th></th>
         </tr>
@@ -43,9 +43,9 @@
                 <td>
                     {{ $country->web_data_id ?? '-' }}
                 </td>
-                <td>
+                {{-- <td>
                     {{ $country->left ?? '-' }}
-                </td>
+                </td> --}}
                 <td class="text-center">
                     @if ($country->active)
                         <div class="d-none">a</div>

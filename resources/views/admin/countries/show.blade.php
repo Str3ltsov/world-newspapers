@@ -58,10 +58,10 @@
                             <b>{{ __('Web Data ID') }}:</b>
                             {{ $country->web_data_id ?? '-' }}
                         </div>
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+                        {{-- <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                             <b>{{ __('Order') }}:</b>
                             {!! $country->left ?? '-' !!}
-                        </div>
+                        </div> --}}
                         <div class="col-xl-3 col-lg-4 col-md-6 col-12">
                             <b>{{ __('Active') }}:</b>
                             {{ $country->active ? __('True') : __('False') }}

@@ -98,10 +98,17 @@ class LinkController extends Controller
                 $parentLink = $this->linkService->getLinkById($parentId);
                 $validatedForm['link'] = $parentLink->link . '/' . $link;
             } else {
-                if ($validatedForm['menu_id'] == Menu::MAGAZINE)
+                $orderValue = 2;
+                $maxOrderFromLinks = $this->linkService->getCategoryLinksByMenuId(Menu::MAGAZINE)->max('left');
+
+                if ($validatedForm['menu_id'] == Menu::MAGAZINE) {
                     $validatedForm['link'] = '/magazines/' . $link;
-                if ($validatedForm['menu_id'] == Menu::NEWS)
+                    $validatedForm['left'] = $maxOrderFromLinks + $orderValue;
+                }
+                if ($validatedForm['menu_id'] == Menu::NEWS) {
                     $validatedForm['link'] = '/news/' . $link;
+                    $validatedForm['left'] = $maxOrderFromLinks + $orderValue;
+                }
             }
 
             $link = Link::create($validatedForm);
@@ -243,6 +250,10 @@ class LinkController extends Controller
                     ->route('links.index')
                     ->with('success', "Successfully moved - $link->title up");
             }
+
+            return redirect()
+                ->route('links.index')
+                ->with('error', __($this->queryErrorMessage));
         } catch (Throwable $throwable) {
             if (config('app.env') == 'production')
                 return back()->with('error', $throwable->getMessage());
@@ -285,6 +296,10 @@ class LinkController extends Controller
                     ->route('links.index')
                     ->with('success', "Successfully moved - $link->title down");
             }
+
+            return redirect()
+                ->route('links.index')
+                ->with('error', __($this->queryErrorMessage));
         } catch (Throwable $throwable) {
             if (config('app.env') == 'production')
                 return back()->with('error', $throwable->getMessage());
